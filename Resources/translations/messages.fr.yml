@@ -1,0 +1,28 @@
+ekyna_payment:
+    new:
+        label: Création
+        message: Votre paiement a bien été créé.
+    pending:
+        label: En attente
+        message: Votre paiement est en attente.
+    processing:
+        label: Traitement
+        message: Votre paiement est en cours de traitement.
+    success:
+        label: Accepté
+        message: Votre paiement est accepté.
+    failed:
+        label: Refusé
+        message: Votre paiement est refusé.
+    canceled:
+        label: Annulé
+        message: Votre paiement a été annulé.
+    refunded:
+        label: Remboursé
+        message: Votre paiement est remboursé.
+    completed:
+        label: Traitement
+        message: Votre paiement a bien été finalisé.
+    unknown:
+        label: Inconnu
+        message: Le statut de votre paiement présente une erreur.

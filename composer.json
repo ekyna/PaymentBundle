@@ -1,0 +1,35 @@
+{
+    "name" : "ekyna/payment-bundle",
+    "description" : "Payment management",
+    "type" : "symfony-bundle",
+    "authors" : [{
+            "name" : "Etienne Dauvergne",
+            "homepage" : "http://ekyna.com"
+        }
+    ],
+    "keywords" : [
+        "symfony2",
+        "payment",
+        "bundle"
+    ],
+    "homepage" : "https://github.com/ekyna/PaymentBundle",
+    "license" : [
+        "MIT"
+    ],
+    "require" : {
+        "php" : ">=5.4",
+        "symfony/framework-bundle" : "~2.3",
+        "ekyna/sale" : "0.1.*@dev"
+    },
+    "autoload" : {
+        "psr-0" : {
+            "Ekyna\\Bundle\\PaymentBundle" : ""
+        }
+    },
+    "target-dir" : "Ekyna/Bundle/PaymentBundle",
+    "extra" : {
+        "branch-alias" : {
+            "dev-master" : "0.1.x-dev"
+        }
+    }
+}
