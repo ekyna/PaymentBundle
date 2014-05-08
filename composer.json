@@ -19,7 +19,9 @@
     "require" : {
         "php" : ">=5.4",
         "symfony/framework-bundle" : "~2.3",
-        "ekyna/sale" : "0.1.*@dev"
+        "ekyna/sale" : "0.1.*@dev",
+        "payum/payum-bundle": "*@stable",
+        "payum/paypal-express-checkout-nvp": "*@stable"
     },
     "autoload" : {
         "psr-0" : {
