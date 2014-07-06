@@ -9,6 +9,5 @@ namespace Ekyna\Bundle\PaymentBundle\Event;
  */
 final class PaymentEvents
 {
-    const PRE_STATE_CHANGE = 'ekyna_payment.pre_state_updated';
-    const POST_STATE_CHANGE = 'ekyna_payment.post_state_updated';
+    const STATE_CHANGE = 'ekyna_payment.payment.event.state_change';
 }

@@ -63,14 +63,12 @@ class PaymentStatusAction extends PaymentAwareAction
         }
         $nextState = $request->getStatus();
 
-        if($nextState !== $previousState) {
-            $this->eventDispatcher->dispatch(PaymentEvents::PRE_STATE_CHANGE, new PaymentEvent($payment));
-
+        if ($nextState !== $previousState) {
             $payment->setState($nextState);
             $this->objectManager->persist($payment);
             $this->objectManager->flush();
 
-            $this->eventDispatcher->dispatch(PaymentEvents::POST_STATE_CHANGE, new PaymentEvent($payment));
+            $this->eventDispatcher->dispatch(PaymentEvents::STATE_CHANGE, new PaymentEvent($payment));
         }
     }
 

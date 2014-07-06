@@ -44,12 +44,12 @@ abstract class Payment extends ArrayObject implements PaymentInterface
     protected $details = array();
 
     /**
-     * @var \Datetime
+     * @var \DateTime
      */
     protected $createdAt;
 
     /**
-     * @var \Datetime
+     * @var \DateTime
      */
     protected $updatedAt;
 
@@ -226,11 +226,11 @@ abstract class Payment extends ArrayObject implements PaymentInterface
     /**
      * Sets the "created at" datetime.
      * 
-     * @param \Datetime $createdAt
+     * @param \DateTime $createdAt
      * 
      * @return \Ekyna\Bundle\PaymentBundle\Entity\Payment
      */
-    public function setCreatedAt(\Datetime $createdAt)
+    public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
 
@@ -248,11 +248,11 @@ abstract class Payment extends ArrayObject implements PaymentInterface
     /**
      * Sets the "updated at" datetime.
      * 
-     * @param \Datetime $updateAt
+     * @param \DateTime $updateAt
      * 
      * @return \Ekyna\Bundle\PaymentBundle\Entity\Payment
      */
-    public function setUpdatedAt(\Datetime $updateAt)
+    public function setUpdatedAt(\DateTime $updateAt)
     {
         $this->updatedAt = $updateAt;
 
