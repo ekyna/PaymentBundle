@@ -64,21 +64,15 @@ abstract class Payment extends ArrayObject implements PaymentInterface
     }
 
     /**
-     * Returns the identifier.
-     * 
-     * @return integer
+     * {@inheritdoc}
      */
     public function getId()
     {
         return $this->id;
     }
 
-	/**
-	 * Sets the amount.
-	 * 
-     * @param float $amount
-     * 
-     * @return \Ekyna\Bundle\PaymentBundle\Entity\Payment
+    /**
+     * {@inheritdoc}
      */
     public function setAmount($amount)
     {
@@ -95,12 +89,8 @@ abstract class Payment extends ArrayObject implements PaymentInterface
         return $this->amount;
     }
 
-	/**
-	 * Sets the currency code.
-	 * 
-     * @param string $currency
-     * 
-     * @return \Ekyna\Bundle\PaymentBundle\Entity\Payment
+    /**
+     * {@inheritdoc}
      */
     public function setCurrency($currency)
     {
@@ -118,11 +108,7 @@ abstract class Payment extends ArrayObject implements PaymentInterface
     }
 
     /**
-     * Sets the state.
-     * 
-     * @param string $state
-     * 
-     * @return \Ekyna\Bundle\PaymentBundle\Entity\Payment
+     * {@inheritdoc}
      */
     public function setState($state)
     {
@@ -140,11 +126,7 @@ abstract class Payment extends ArrayObject implements PaymentInterface
     }
 
     /**
-     * Sets the method.
-     * 
-     * @param string $method
-     * 
-     * @return \Ekyna\Bundle\PaymentBundle\Entity\Payment
+     * {@inheritdoc}
      */
     public function setMethod($method)
     {
@@ -162,11 +144,7 @@ abstract class Payment extends ArrayObject implements PaymentInterface
     }
 
     /**
-     * Sets the details.
-     * 
-     * @param array $details
-     * 
-     * @return \Ekyna\Bundle\PaymentBundle\Entity\Payment
+     * {@inheritdoc}
      */
     public function setDetails(array $details)
     {
@@ -224,11 +202,7 @@ abstract class Payment extends ArrayObject implements PaymentInterface
     }
 
     /**
-     * Sets the "created at" datetime.
-     * 
-     * @param \DateTime $createdAt
-     * 
-     * @return \Ekyna\Bundle\PaymentBundle\Entity\Payment
+     * {@inheritDoc}
      */
     public function setCreatedAt(\DateTime $createdAt)
     {
@@ -246,11 +220,7 @@ abstract class Payment extends ArrayObject implements PaymentInterface
     }
 
     /**
-     * Sets the "updated at" datetime.
-     * 
-     * @param \DateTime $updateAt
-     * 
-     * @return \Ekyna\Bundle\PaymentBundle\Entity\Payment
+     * {@inheritDoc}
      */
     public function setUpdatedAt(\DateTime $updateAt)
     {

@@ -41,7 +41,7 @@ class PaymentStatusAction extends PaymentAwareAction
 
     public function execute($request)
     {
-        /** @var $request StatusRequestInterface */
+        /** @var \Payum\Core\Request\StatusRequestInterface$request */
         if (!$this->supports($request)) {
             throw RequestNotSupportedException::createActionNotSupported($this, $request);
         }
