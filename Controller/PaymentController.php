@@ -2,10 +2,15 @@
 
 namespace Ekyna\Bundle\PaymentBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ekyna\Bundle\CoreBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Payum\Core\Request\BinaryMaskStatusRequest;
 
+/**
+ * Class PaymentController
+ * @package Ekyna\Bundle\PaymentBundle\Controller
+ * @author Étienne Dauvergne <contact@ekyna.com>
+ */
 class PaymentController extends Controller
 {
     public function paypalExpressCheckoutPaymentAction()
@@ -51,17 +56,11 @@ class PaymentController extends Controller
 
         if ($status->isSuccess()) {
             $this->getUser()->addCredits(100);
-            $this->get('session')->getFlashBag()->set(
-                'success',
-                'Payment success. Credits were added'
-            );
+            $this->addFlash('Payment success. Credits were added', 'success');
         } else if ($status->isPending()) {
-            $this->get('session')->getFlashBag()->set(
-                'warning',
-                'Payment is still pending. Credits were not added'
-            );
+            $this->addFlash('Payment is still pending. Credits were not added', 'warning');
         } else {
-            $this->get('session')->getFlashBag()->set('error', 'Payment failed');
+            $this->addFlash('Payment failed', 'error');
         }
 
         return $this->redirect($this->generateUrl('ekyna_cart_index'));
