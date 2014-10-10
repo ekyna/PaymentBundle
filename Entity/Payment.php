@@ -7,8 +7,8 @@ use Ekyna\Component\Sale\Payment\PaymentStates;
 use Ekyna\Component\Sale\Payment\PaymentInterface;
 
 /**
- * Payment.
- *
+ * Class Payment
+ * @package Ekyna\Bundle\PaymentBundle\Entity
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
 abstract class Payment extends ArrayObject implements PaymentInterface
@@ -222,7 +222,7 @@ abstract class Payment extends ArrayObject implements PaymentInterface
     /**
      * {@inheritDoc}
      */
-    public function setUpdatedAt(\DateTime $updateAt)
+    public function setUpdatedAt(\DateTime $updateAt = null)
     {
         $this->updatedAt = $updateAt;
 

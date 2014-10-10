@@ -9,5 +9,5 @@ namespace Ekyna\Bundle\PaymentBundle\Event;
  */
 final class PaymentEvents
 {
-    const STATE_CHANGE = 'ekyna_payment.payment.event.state_change';
+    const STATE_CHANGE = 'ekyna_payment.payment.state_change';
 }
