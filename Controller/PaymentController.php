@@ -55,7 +55,7 @@ class PaymentController extends Controller
         $payment->execute($status);
 
         if ($status->isSuccess()) {
-            $this->getUser()->addCredits(100);
+            //$this->getUser()->addCredits(100);
             $this->addFlash('Payment success. Credits were added', 'success');
         } else if ($status->isPending()) {
             $this->addFlash('Payment is still pending. Credits were not added', 'warning');
