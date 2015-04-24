@@ -8,7 +8,10 @@ ekyna_payment:
     processing:
         label: Traitement
         message: Votre paiement est en cours de traitement.
-    success:
+    completed:
+        label: Traitement
+        message: Votre paiement a bien été finalisé.
+    authorized:
         label: Accepté
         message: Votre paiement est accepté.
     failed:
@@ -20,9 +23,6 @@ ekyna_payment:
     refunded:
         label: Remboursé
         message: Votre paiement est remboursé.
-    completed:
-        label: Traitement
-        message: Votre paiement a bien été finalisé.
     unknown:
         label: Inconnu
         message: Le statut de votre paiement présente une erreur.

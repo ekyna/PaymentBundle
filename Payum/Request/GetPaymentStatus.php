@@ -2,15 +2,15 @@
 
 namespace Ekyna\Bundle\PaymentBundle\Payum\Request;
 
-use Payum\Core\Request\BaseStatusRequest;
 use Ekyna\Component\Sale\Payment\PaymentStates;
+use Payum\Core\Request\BaseGetStatus;
 
 /**
- * StatusRequest.
- *
+ * Class GetPaymentStatus
+ * @package Ekyna\Bundle\PaymentBundle\Payum\Request
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class PaymentStatusRequest extends BaseStatusRequest
+class GetPaymentStatus extends BaseGetStatus
 {
     /**
      * {@inheritdoc}
@@ -31,17 +31,17 @@ class PaymentStatusRequest extends BaseStatusRequest
     /**
      * {@inheritdoc}
      */
-    public function markSuccess()
+    public function markPending()
     {
-        $this->status = PaymentStates::STATE_SUCCESS;
+        $this->status = PaymentStates::STATE_PROCESSING;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function isSuccess()
+    public function isPending()
     {
-        return $this->status === PaymentStates::STATE_SUCCESS;
+        return $this->status === PaymentStates::STATE_PROCESSING;
     }
 
     /**
@@ -95,22 +95,6 @@ class PaymentStatusRequest extends BaseStatusRequest
     /**
      * {@inheritdoc}
      */
-    public function markPending()
-    {
-        $this->status = PaymentStates::STATE_PENDING;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isPending()
-    {
-        return $this->status === PaymentStates::STATE_PENDING;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function markFailed()
     {
         $this->status = PaymentStates::STATE_FAILED;
@@ -138,5 +122,53 @@ class PaymentStatusRequest extends BaseStatusRequest
     public function isUnknown()
     {
         return $this->status === PaymentStates::STATE_UNKNOWN;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function markCaptured()
+    {
+        $this->status = PaymentStates::STATE_COMPLETED;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isCaptured()
+    {
+        return $this->status === PaymentStates::STATE_COMPLETED;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isAuthorized()
+    {
+        return $this->status === PaymentStates::STATE_AUTHORIZED;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function markAuthorized()
+    {
+        $this->status = PaymentStates::STATE_AUTHORIZED;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isRefunded()
+    {
+        return $this->status === PaymentStates::STATE_REFUNDED;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function markRefunded()
+    {
+        $this->status = PaymentStates::STATE_REFUNDED;
     }
 }

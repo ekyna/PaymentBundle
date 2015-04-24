@@ -6,14 +6,51 @@
                         http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="ekyna.payum.action.payment_status.class">Ekyna\Bundle\PaymentBundle\Payum\Action\PaymentStatusAction</parameter>
+        <parameter key="ekyna_payment.payment_method.form_type.class">Ekyna\Bundle\PaymentBundle\Form\Type\PaymentMethodType</parameter>
+
+        <parameter key="ekyna_payment.payum.action.payment_status.class">Ekyna\Bundle\PaymentBundle\Payum\Action\PaymentStatusAction</parameter>
+        <parameter key="ekyna_payment.payum.action.execute_same_request_with_payment_details.class">Ekyna\Bundle\PaymentBundle\Payum\Action\ExecuteSameRequestWithPaymentDetailsAction</parameter>
+
+        <parameter key="ekyna_payment.payum.action.paypal.capture_test_payment_using_express_checkout.class">Ekyna\Bundle\PaymentBundle\Payum\Action\Paypal\CaptureTestPaymentUsingExpressCheckoutAction</parameter>
+        <parameter key="ekyna_payment.payum.action.paypal.notify_payment.class">Ekyna\Bundle\PaymentBundle\Payum\Action\Paypal\NotifyPaymentAction</parameter>
     </parameters>
 
     <services>
-        <service id="ekyna.payum.action.payment_status" class="%ekyna.payum.action.payment_status.class%">
-            <argument type="service" id="event_dispatcher" />
-            <argument type="service" id="doctrine.orm.entity_manager" />
+
+        <!-- Form types -->
+        <service id="ekyna_payment.payment_method.form_type" class="%ekyna_payment.payment_method.form_type.class%">
+            <tag name="form.type" alias="ekyna_payment_method" />
         </service>
+
+        <!-- Event subscribers -->
+        <service id="ekyna_payment.payment_event_subscriber" class="Ekyna\Bundle\PaymentBundle\EventListener\PaymentEventSubscriber">
+            <argument type="service" id="payum" />
+            <argument type="service" id="payum.security.token_factory" />
+            <tag name="kernel.event_subscriber" />
+        </service>
+
+        <!-- ===================================== Payum actions ===================================== -->
+
+        <!-- Static -->
+        <service id="ekyna_payment.payum.action.payment_status" class="%ekyna_payment.payum.action.payment_status.class%">
+            <tag name="payum.action" all="true" />
+        </service>
+
+        <!-- PayPal -->
+        <service id="ekyna_payment.payum.action.paypal.capture_test_payment_using_express_checkout" class="%ekyna_payment.payum.action.paypal.capture_test_payment_using_express_checkout.class%">
+            <tag name="payum.action" factory="paypal_express_checkout_nvp" />
+        </service>
+        <service id="ekyna_payment.payum.action.paypal.notify_payment" class="%ekyna_payment.payum.action.paypal.notify_payment.class%">
+            <argument type="service" id="sm.factory" />
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
+            <tag name="payum.action" factory="paypal_express_checkout_nvp" />
+        </service>
+
+        <!-- Recurse -->
+        <service id="ekyna_payment.payum.action.execute_same_request_with_payment_details" class="%ekyna_payment.payum.action.execute_same_request_with_payment_details.class%">
+            <tag name="payum.action" all="true" />
+        </service>
+
     </services>
 
 </container>

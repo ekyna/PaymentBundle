@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+    <title>Payment : done action.</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <style type="text/css">
+        .dl-horizontal dt {
+            width: 320px !important;
+        }
+        .dl-horizontal dd {
+            margin-left: 340px !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <h1>Payment : done action.</h1>
+                <hr>
+
+                <p>Status : {{ status }}</p>
+                <p>Payment: [{{ payment.state }}] {{ payment.amount|localizednumber }} {{ payment.currency }}</p>
+                <hr>
+
+                <dl class="dl-horizontal">
+                    {% for key, value in payment.details %}
+                    <dt>{{ key }}</dt>
+                    <dd>{{ value }}</dd>
+                    {% endfor %}
+                </dl>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

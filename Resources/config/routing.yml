@@ -1,19 +1,15 @@
 payum_capture:
     resource: "@PayumBundle/Resources/config/routing/capture.xml"
 
+payum_authorize:
+    resource: "@PayumBundle/Resources/config/routing/authorize.xml"
+
 payum_notify:
     resource: "@PayumBundle/Resources/config/routing/notify.xml"
 
-ekyna_payment_paypal:
-    pattern: /payment/paypal-express-checkout
-    defaults:
-        _controller: EkynaPaymentBundle:Payment:paypalExpressCheckoutPayment
-    requirements:
-        _method: GET
-
 ekyna_payment_done:
-    pattern: /payment/done
+    pattern: /api/payment/done
     defaults:
-        _controller: EkynaPaymentBundle:Payment:captureDone
+        _controller: EkynaPaymentBundle:Payment:done
     requirements:
         _method: GET

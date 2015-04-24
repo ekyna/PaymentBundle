@@ -39,11 +39,6 @@ abstract class Payment extends ArrayObject implements PaymentInterface
     protected $method;
 
     /**
-     * @var array
-     */
-    protected $details = array();
-
-    /**
      * @var \DateTime
      */
     protected $createdAt;
@@ -144,12 +139,14 @@ abstract class Payment extends ArrayObject implements PaymentInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
-    public function setDetails(array $details)
+    public function setDetails($details)
     {
+        if ($details instanceof \Traversable) {
+            $details = iterator_to_array($details);
+        }
         $this->details = $details;
-
         return $this;
     }
 
@@ -159,46 +156,6 @@ abstract class Payment extends ArrayObject implements PaymentInterface
     public function getDetails()
     {
         return $this->details;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function offsetExists($offset)
-    {
-        return array_key_exists($offset, $this->details);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function offsetGet($offset)
-    {
-        return $this->details[$offset];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function offsetSet($offset, $value)
-    {
-        $this->details[$offset] = $value;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function offsetUnset($offset)
-    {
-        unset($this->details[$offset]);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getIterator()
-    {
-        return new \ArrayIterator($this->details);
     }
 
     /**

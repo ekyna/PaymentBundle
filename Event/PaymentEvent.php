@@ -4,6 +4,7 @@ namespace Ekyna\Bundle\PaymentBundle\Event;
 
 use Ekyna\Component\Sale\Payment\PaymentInterface;
 use Symfony\Component\EventDispatcher\Event;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * PaymentEvent.
@@ -13,14 +14,20 @@ use Symfony\Component\EventDispatcher\Event;
 class PaymentEvent extends Event
 {
     /**
-     * @var \Ekyna\Component\Sale\Payment\PaymentInterface
+     * @var PaymentInterface
      */
     private $payment;
 
     /**
+     * @var Response
+     */
+    private $response;
+
+
+    /**
      * Constructor.
      * 
-     * @param \Ekyna\Component\Sale\Payment\PaymentInterface $payment
+     * @param PaymentInterface $payment
      */
     public function __construct(PaymentInterface $payment)
     {
@@ -35,5 +42,27 @@ class PaymentEvent extends Event
     public function getPayment()
     {
         return $this->payment;
+    }
+
+    /**
+     * Returns the response.
+     *
+     * @return Response
+     */
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    /**
+     * Sets the response.
+     *
+     * @param Response $response
+     * @return PaymentEvent
+     */
+    public function setResponse(Response $response)
+    {
+        $this->response = $response;
+        return $this;
     }
 }

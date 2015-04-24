@@ -2,8 +2,13 @@
 
 namespace Ekyna\Bundle\PaymentBundle;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Ekyna\Bundle\CoreBundle\AbstractBundle;
 
-class EkynaPaymentBundle extends Bundle
+/**
+ * Class EkynaPaymentBundle
+ * @package Ekyna\Bundle\PaymentBundle
+ * @author Étienne Dauvergne <contact@ekyna.com>
+ */
+class EkynaPaymentBundle extends AbstractBundle
 {
 }

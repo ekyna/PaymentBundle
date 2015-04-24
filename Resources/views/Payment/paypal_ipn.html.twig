@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+    <title>Test paypal payment : prepare action.</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <h1>Test paypal IPN</h1>
+                <hr>
+
+                <form action="{{ path('ekyna_payment_paypal_ipn') }}" method="post" class="form-horizontal" {{ form_enctype(form) }}>
+
+                    {{ bootstrap_set_style('horizontal') }}
+                    {{ form_widget(form) }}
+
+                    <hr>
+                    <p style="text-align: center;">
+                        <button type="submit" class="btn btn-primary">Simulate</button>
+                    </p>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

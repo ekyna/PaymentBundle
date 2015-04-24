@@ -19,10 +19,11 @@
     "require" : {
         "php" : ">=5.4",
         "symfony/framework-bundle" : "~2.3",
+        "ekyna/core" : "0.1.*@dev",
         "ekyna/sale" : "0.1.*@dev",
-        "payum/core": "0.8.6",
-        "payum/payum-bundle": "0.8.3",
-        "payum/paypal-express-checkout-nvp": "0.8.5"
+        "payum/payum": "0.14.*",
+        "payum/payum-bundle": "0.14.*",
+        "winzou/state-machine-bundle": "~0.2"
     },
     "autoload" : {
         "psr-0" : {

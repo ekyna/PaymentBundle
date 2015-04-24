@@ -2,21 +2,23 @@
 
 namespace Ekyna\Bundle\PaymentBundle\Payum\Action;
 
-//use Ekyna\Bundle\PaymentBundle\Payum\Request\GetPaymentStatus;
 use Ekyna\Component\Sale\Payment\PaymentInterface;
 use Payum\Core\Action\PaymentAwareAction;
+use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
-use Payum\Core\Request\GetStatusInterface;
+use Payum\Core\Request\Generic;
 
 /**
- * Class PaymentStatusAction
+ * Class ExecuteSameRequestWithPaymentDetailsAction
  * @package Ekyna\Bundle\PaymentBundle\Payum\Action
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class PaymentStatusAction extends PaymentAwareAction
+class ExecuteSameRequestWithPaymentDetailsAction extends PaymentAwareAction
 {
     /**
      * {@inheritDoc}
+     *
+     * @param $request Generic
      */
     public function execute($request)
     {
@@ -24,15 +26,18 @@ class PaymentStatusAction extends PaymentAwareAction
 
         /** @var PaymentInterface $payment */
         $payment = $request->getModel();
+        $details = ArrayObject::ensureArrayObject($payment->getDetails());
 
-        if ($payment->getDetails()) {
-            $request->setModel($payment->getDetails());
+        try {
+            $request->setModel($details);
 
             $this->payment->execute($request);
 
-            $request->setModel($payment);
-        } else {
-            $request->markNew();
+            $payment->setDetails((array) $details);
+        } catch (\Exception $e) {
+            $payment->setDetails((array) $details);
+            
+            throw $e;
         }
     }
 
@@ -42,7 +47,7 @@ class PaymentStatusAction extends PaymentAwareAction
     public function supports($request)
     {
         return
-            $request instanceof GetStatusInterface &&
+            $request instanceof Generic &&
             $request->getModel() instanceof PaymentInterface
         ;
     }

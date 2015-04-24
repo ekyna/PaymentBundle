@@ -12,7 +12,6 @@
         <field name="currency" column="currency" type="string" length="3" />
         <field name="state" column="state" type="string" length="16" />
         <field name="method" column="method"  type="string" length="64" />
-        <field name="details" column="details" type="json_array" />
         <field name="createdAt" column="created_at" type="datetime">
             <gedmo:timestampable on="create" />
         </field>

@@ -1,0 +1,37 @@
+winzou_state_machine:
+    ekyna_payment:
+        class:         Ekyna\Component\Sale\Payment\PaymentInterface
+        property_path: state
+        state_machine_class: Ekyna\Bundle\PaymentBundle\StateMachine\StateMachine
+        states:
+            new:        ~
+            unknown:    ~
+            pending:    ~
+            processing: ~
+            completed:  ~
+            failed:     ~
+            cancelled:  ~
+            void:       ~
+            refunded:   ~
+        transitions:
+            create:
+                from: [new]
+                to:   pending
+            process:
+                from: [new, pending]
+                to:   processing
+            complete:
+                from: [new, pending, processing]
+                to:   completed
+            fail:
+                from: [new, pending, processing]
+                to:   failed
+            cancel:
+                from: [new, pending, processing]
+                to:   cancelled
+            refund:
+                from: [completed]
+                to:   refunded
+            void:
+                from: [new, pending]
+                to:   void
