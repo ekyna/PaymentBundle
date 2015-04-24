@@ -2,7 +2,8 @@
     "name" : "ekyna/payment-bundle",
     "description" : "Payment management",
     "type" : "symfony-bundle",
-    "authors" : [{
+    "authors" : [
+        {
             "name" : "Etienne Dauvergne",
             "homepage" : "http://ekyna.com"
         }
@@ -19,7 +20,7 @@
     "require" : {
         "php" : ">=5.4",
         "symfony/framework-bundle" : "~2.3",
-        "ekyna/core" : "0.1.*@dev",
+        "ekyna/core-bundle" : "0.1.*@dev",
         "ekyna/sale" : "0.1.*@dev",
         "payum/payum": "0.14.*",
         "payum/payum-bundle": "0.14.*",
@@ -30,10 +31,5 @@
             "Ekyna\\Bundle\\PaymentBundle" : ""
         }
     },
-    "target-dir" : "Ekyna/Bundle/PaymentBundle",
-    "extra" : {
-        "branch-alias" : {
-            "dev-master" : "0.1.x-dev"
-        }
-    }
+    "target-dir" : "Ekyna/Bundle/PaymentBundle"
 }
