@@ -6,11 +6,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * Class PaymentMethodType
+ * Class PaymentType
  * @package Ekyna\Bundle\PaymentBundle\Form\Type
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class PaymentMethodType extends AbstractType
+class PaymentType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -18,12 +18,7 @@ class PaymentMethodType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options = array())
     {
         $builder
-            ->add('method', 'choice', array(
-                'choices' => array(
-                    'offline' => 'Offline',
-                    'paypal_express_checkout' => 'Paypal Express Checkout',
-                ),
-            ))
+            ->add('method', 'ekyna_payment_method_choice')
         ;
     }
 
@@ -32,6 +27,6 @@ class PaymentMethodType extends AbstractType
      */
     public function getName()
     {
-        return 'ekyna_payment_method';
+        return 'ekyna_payment_payment';
     }
 }

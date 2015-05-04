@@ -6,9 +6,12 @@
                         http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
     <class name="Ekyna\Bundle\PaymentBundle\Entity\Payment">
+        <property name="method">
+            <constraint name="NotNull" />
+        </property>
         <property name="amount">
             <constraint name="GreaterThan">
-                <value>0</value>
+                <option name="value">0</option>
             </constraint>
         </property>
         <property name="currency">
@@ -17,11 +20,17 @@
         <property name="state">
             <constraint name="Choice">
                 <option name="callback">
-                    <value>Ekyna\Component\Sale\Payment\PaymentStates</value>
-                    <value>getStates</value></option>
+                    <value>Ekyna\Bundle\PaymentBundle\Model\PaymentStates</value>
+                    <value>getConstants</value></option>
             </constraint>
         </property>
-        <property name="method">
+    </class>
+
+    <class name="Ekyna\Bundle\PaymentBundle\Entity\Method">
+        <property name="factoryName">
+            <constraint name="NotBlank" />
+        </property>
+        <property name="paymentName">
             <constraint name="NotBlank" />
         </property>
     </class>

@@ -4,10 +4,3 @@ ekyna_payment_prepare:
         _controller: EkynaPaymentBundle:Payment:prepare
     requirements:
         _method: GET|POST
-
-ekyna_payment_paypal_ipn:
-    pattern: /paypal-ipn
-    defaults:
-        _controller: EkynaPaymentBundle:Payment:paypalIpn
-    requirements:
-        _method: GET|POST

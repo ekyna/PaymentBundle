@@ -25,6 +25,10 @@ class CaptureTestPaymentUsingExpressCheckoutAction extends AbstractCapturePaymen
             return;
         }
 
+        $details['NOSHIPPING'] = 1;
+        $details['LANDINGPAGE'] = 'Billing';
+        $details['SOLUTIONTYPE'] = 'Sole';
+
         $details['PAYMENTREQUEST_0_INVNUM'] = uniqid().'-'.$payment->getId();
         $details['PAYMENTREQUEST_0_CURRENCYCODE'] = $payment->getCurrency();
         $details['PAYMENTREQUEST_0_AMT'] = round($payment->getAmount(), 2);

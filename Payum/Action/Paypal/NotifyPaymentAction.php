@@ -4,7 +4,7 @@ namespace Ekyna\Bundle\PaymentBundle\Payum\Action\Paypal;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Ekyna\Bundle\PaymentBundle\Payum\Action\AbstractPaymentStateAwareAction;
-use Ekyna\Bundle\PaymentBundle\Payum\Request\GetPaymentStatus;
+use Ekyna\Bundle\PaymentBundle\Payum\Request\GetStatus;
 use Ekyna\Component\Sale\Payment\PaymentInterface;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Request\GetStatusInterface;
@@ -22,7 +22,7 @@ class NotifyPaymentAction extends AbstractPaymentStateAwareAction
     /**
      * {@inheritDoc}
      *
-     * @param $request GetStatusInterface
+     * @param $request Notify
      */
     public function execute($request)
     {
@@ -33,7 +33,7 @@ class NotifyPaymentAction extends AbstractPaymentStateAwareAction
 
         $this->payment->execute(new Sync($payment));
 
-        $status = new GetPaymentStatus($payment);
+        $status = new GetStatus($payment);
         $this->payment->execute($status);
 
         $nextState = $status->getValue();

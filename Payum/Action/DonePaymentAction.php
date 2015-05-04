@@ -2,38 +2,39 @@
 
 namespace Ekyna\Bundle\PaymentBundle\Payum\Action;
 
-//use Ekyna\Bundle\PaymentBundle\Payum\Request\GetStatus;
+use Ekyna\Bundle\PaymentBundle\Payum\Request\Done;
+use Ekyna\Bundle\PaymentBundle\Payum\Request\GetStatus;
 use Ekyna\Component\Sale\Payment\PaymentInterface;
-use Payum\Core\Action\PaymentAwareAction;
 use Payum\Core\Exception\RequestNotSupportedException;
-use Payum\Core\Request\GetStatusInterface;
+use Payum\Core\Request\Sync;
 
 /**
- * Class PaymentStatusAction
+ * Class DonePaymentAction
  * @package Ekyna\Bundle\PaymentBundle\Payum\Action
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class PaymentStatusAction extends PaymentAwareAction
+class DonePaymentAction extends AbstractPaymentStateAwareAction
 {
     /**
      * {@inheritDoc}
+     *
+     * @param $request Done
      */
     public function execute($request)
     {
         RequestNotSupportedException::assertSupports($this, $request);
 
-        /** @var PaymentInterface $payment */
+        /** @var $payment PaymentInterface */
         $payment = $request->getModel();
 
-        if ($payment->getDetails()) {
-            $request->setModel($payment->getDetails());
+        $this->payment->execute(new Sync($payment));
 
-            $this->payment->execute($request);
+        $status = new GetStatus($payment);
+        $this->payment->execute($status);
 
-            $request->setModel($payment);
-        } else {
-            $request->markNew();
-        }
+        $nextState = $status->getValue();
+
+        $this->updatePaymentState($payment, $nextState);
     }
 
     /**
@@ -42,7 +43,8 @@ class PaymentStatusAction extends PaymentAwareAction
     public function supports($request)
     {
         return
-            $request instanceof GetStatusInterface &&
+            $request instanceof Done &&
+            $request->getToken() &&
             $request->getModel() instanceof PaymentInterface
         ;
     }

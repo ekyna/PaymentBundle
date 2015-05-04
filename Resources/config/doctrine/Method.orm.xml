@@ -5,12 +5,14 @@
     xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                         http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Ekyna\Bundle\PaymentBundle\Entity\TestPayment"
-            table="pay_test_payment">
+    <entity name="Ekyna\Bundle\PaymentBundle\Entity\Method"
+            table="pay_method">
 
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />
         </id>
+
+        <field name="enabled" column="enabled" type="boolean" />
 
     </entity>
 

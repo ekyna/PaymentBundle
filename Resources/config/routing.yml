@@ -7,6 +7,10 @@ payum_authorize:
 payum_notify:
     resource: "@PayumBundle/Resources/config/routing/notify.xml"
 
+ekyna_payment_admin:
+    resource: "routing/admin.yml"
+    prefix:   /admin/setting
+
 ekyna_payment_done:
     pattern: /api/payment/done
     defaults:

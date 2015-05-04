@@ -1,0 +1,58 @@
+{% extends "EkynaAdminBundle:Entity:sided.html.twig" %}
+
+{% block title %}
+<h1>{{ 'ekyna_payment.method.header.new'|trans|raw }}</h1>
+{% endblock title %}
+
+{% block actions %}
+{{ admin_resource_btn('ekyna_payment.method', 'list') }}
+{% endblock actions %}
+
+{% block main %}
+<form action="{{ path('ekyna_payment_method_admin_new') }}" {{ form_enctype(form) }} method="post" class="form-horizontal form-with-tabs">
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#payment-method-general" data-toggle="tab">{{ 'ekyna_core.field.general'|trans }}</a></li>
+    </ul>
+
+    <div class="panel-body form-body">
+        {{ bootstrap_set_style('horizontal') }}
+        <div class="tab-content">
+            <div class="tab-pane active" id="payment-method-general">
+                {{ form_errors(form) }}
+                {% if flow.getCurrentStepNumber() == 1 %}
+                    {{ form_row(form.factoryName) }}
+                {% else %}
+                    {{ form_row(form.paymentName) }}
+                    {{ form_row(form.factoryName) }}
+                    {{ form_row(form.config) }}
+                    {{ form_row(form.enabled) }}
+                {% endif %}
+                {{ form_rest(form) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-footer">
+        <div class="form-group row">
+            <div class="col-md-offset-2 col-md-10">
+                {% set renderBackButton = flow.getCurrentStepNumber() in (flow.getFirstStepNumber() + 1) .. flow.getLastStepNumber() %}
+                <button type="submit" name="submit" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    {%- if flow.getCurrentStepNumber() < flow.getLastStepNumber() -%}
+                        {{- 'ekyna_core.button.next_step'|trans -}}
+                    {%- else -%}
+                        {{- 'ekyna_core.button.validate'|trans -}}
+                    {%- endif -%}
+                </button>
+                {% if renderBackButton %}
+                <button type="submit" class="btn btn-default" name="{{ flow.getFormTransitionKey() }}" value="back" formnovalidate="formnovalidate">
+                    {{- 'ekyna_core.button.back'|trans -}}
+                </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</form>
+{% endblock main %}

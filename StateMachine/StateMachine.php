@@ -26,7 +26,7 @@ class StateMachine extends BaseStateMachine implements StateMachineInterface
     }
 
     /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
     public function getTransitionFromState($fromState)
     {
@@ -41,7 +41,7 @@ class StateMachine extends BaseStateMachine implements StateMachineInterface
     }
 
     /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
     public function getTransitionToState($toState)
     {

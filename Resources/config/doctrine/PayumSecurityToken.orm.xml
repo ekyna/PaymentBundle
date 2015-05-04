@@ -6,7 +6,7 @@
                         http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <entity name="Ekyna\Bundle\PaymentBundle\Entity\PayumSecurityToken"
-            table="payum_security_token">
+            table="pay_security_token">
     
     </entity>
 

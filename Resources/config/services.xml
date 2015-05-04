@@ -6,20 +6,33 @@
                         http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="ekyna_payment.payment_method.form_type.class">Ekyna\Bundle\PaymentBundle\Form\Type\PaymentMethodType</parameter>
-
-        <parameter key="ekyna_payment.payum.action.payment_status.class">Ekyna\Bundle\PaymentBundle\Payum\Action\PaymentStatusAction</parameter>
-        <parameter key="ekyna_payment.payum.action.execute_same_request_with_payment_details.class">Ekyna\Bundle\PaymentBundle\Payum\Action\ExecuteSameRequestWithPaymentDetailsAction</parameter>
-
-        <parameter key="ekyna_payment.payum.action.paypal.capture_test_payment_using_express_checkout.class">Ekyna\Bundle\PaymentBundle\Payum\Action\Paypal\CaptureTestPaymentUsingExpressCheckoutAction</parameter>
-        <parameter key="ekyna_payment.payum.action.paypal.notify_payment.class">Ekyna\Bundle\PaymentBundle\Payum\Action\Paypal\NotifyPaymentAction</parameter>
+        <parameter key="ekyna_payment.method_choice.form_type.class">Ekyna\Bundle\PaymentBundle\Form\Type\MethodChoiceType</parameter>
+        <parameter key="ekyna_payment.payment.form_type.class">Ekyna\Bundle\PaymentBundle\Form\Type\PaymentType</parameter>
     </parameters>
 
     <services>
 
         <!-- Form types -->
-        <service id="ekyna_payment.payment_method.form_type" class="%ekyna_payment.payment_method.form_type.class%">
-            <tag name="form.type" alias="ekyna_payment_method" />
+        <service id="ekyna_payment.method_choice.form_type" class="%ekyna_payment.method_choice.form_type.class%">
+            <argument>%ekyna_payment.method.class%</argument>
+            <tag name="form.type" alias="ekyna_payment_method_choice" />
+        </service>
+        <service id="ekyna_payment.payment.form_type" class="%ekyna_payment.payment.form_type.class%">
+            <tag name="form.type" alias="ekyna_payment_payment" />
+        </service>
+        <service id="ekyna_payment.test_payment.form_type" class="Ekyna\Bundle\PaymentBundle\Form\Type\TestPaymentType">
+            <tag name="form.type" alias="ekyna_payment_test_payment" />
+        </service>
+
+        <!-- Form flow -->
+        <service id="ekyna_payment.method_create.form_flow"
+                 class="Ekyna\Bundle\PaymentBundle\Form\Flow\MethodCreateFlow"
+                 parent="craue.form.flow"
+                 scope="request">
+        </service>
+        <service id="ekyna_payment.method_factory.form_type" class="Ekyna\Bundle\PaymentBundle\Form\Flow\Type\MethodFactoryType">
+            <argument>%ekyna_payment.method.class%</argument>
+            <tag name="form.type" alias="ekyna_payment_method_create_factory" />
         </service>
 
         <!-- Event subscribers -->
@@ -29,25 +42,53 @@
             <tag name="kernel.event_subscriber" />
         </service>
 
+        <!-- Twig extensions -->
+        <service id="ekyna_payment.twig.payment_extension" class="Ekyna\Bundle\PaymentBundle\Twig\PaymentExtension">
+            <argument type="service" id="translator" />
+            <argument type="service" id="router" />
+            <argument type="service" id="sm.factory" />
+            <tag name="twig.extension" />
+        </service>
+
         <!-- ===================================== Payum actions ===================================== -->
 
-        <!-- Static -->
-        <service id="ekyna_payment.payum.action.payment_status" class="%ekyna_payment.payum.action.payment_status.class%">
+        <!-- Global -->
+        <service id="ekyna_payment.payum.action.payment_status"
+                 class="Ekyna\Bundle\PaymentBundle\Payum\Action\PaymentStatusAction">
+            <tag name="payum.action" all="true" />
+        </service>
+        <service id="ekyna_payment.payum.action.done_payment"
+                 class="Ekyna\Bundle\PaymentBundle\Payum\Action\DonePaymentAction">
+            <argument type="service" id="sm.factory" />
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
             <tag name="payum.action" all="true" />
         </service>
 
+        <!-- Offline -->
+        <service id="ekyna_payment.payum.action.offline.capture_payment"
+                 class="Ekyna\Bundle\PaymentBundle\Payum\Action\Offline\CapturePaymentAction">
+            <tag name="payum.action" factory="offline" />
+        </service>
+        <service id="ekyna_payment.payum.action.offline.sync_payment"
+                 class="Ekyna\Bundle\PaymentBundle\Payum\Action\Offline\SyncPaymentAction">
+            <tag name="payum.action" factory="offline" />
+        </service>
+
         <!-- PayPal -->
-        <service id="ekyna_payment.payum.action.paypal.capture_test_payment_using_express_checkout" class="%ekyna_payment.payum.action.paypal.capture_test_payment_using_express_checkout.class%">
+        <service id="ekyna_payment.payum.action.paypal.capture_test_payment_using_express_checkout"
+                 class="Ekyna\Bundle\PaymentBundle\Payum\Action\Paypal\CaptureTestPaymentUsingExpressCheckoutAction">
             <tag name="payum.action" factory="paypal_express_checkout_nvp" />
         </service>
-        <service id="ekyna_payment.payum.action.paypal.notify_payment" class="%ekyna_payment.payum.action.paypal.notify_payment.class%">
+        <service id="ekyna_payment.payum.action.paypal.notify_payment"
+                 class="Ekyna\Bundle\PaymentBundle\Payum\Action\Paypal\NotifyPaymentAction">
             <argument type="service" id="sm.factory" />
             <argument type="service" id="doctrine.orm.default_entity_manager" />
             <tag name="payum.action" factory="paypal_express_checkout_nvp" />
         </service>
 
-        <!-- Recurse -->
-        <service id="ekyna_payment.payum.action.execute_same_request_with_payment_details" class="%ekyna_payment.payum.action.execute_same_request_with_payment_details.class%">
+        <!-- Sub requests -->
+        <service id="ekyna_payment.payum.action.execute_same_request_with_payment_details"
+                 class="Ekyna\Bundle\PaymentBundle\Payum\Action\ExecuteSameRequestWithPaymentDetailsAction">
             <tag name="payum.action" all="true" />
         </service>
 

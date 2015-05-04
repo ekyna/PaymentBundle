@@ -20,11 +20,12 @@
     "require" : {
         "php" : ">=5.4",
         "symfony/framework-bundle" : "~2.3",
-        "ekyna/core-bundle" : "0.1.*@dev",
+        "ekyna/admin-bundle" : "0.1.*@dev",
         "ekyna/sale" : "0.1.*@dev",
         "payum/payum": "0.14.*",
         "payum/payum-bundle": "0.14.*",
-        "winzou/state-machine-bundle": "~0.2"
+        "winzou/state-machine-bundle": "~0.2",
+        "craue/formflow-bundle": "~2.1"
     },
     "autoload" : {
         "psr-0" : {

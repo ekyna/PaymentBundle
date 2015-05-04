@@ -11,13 +11,16 @@
         <field name="amount" column="amount" type="decimal" precision="10" scale="5" />
         <field name="currency" column="currency" type="string" length="3" />
         <field name="state" column="state" type="string" length="16" />
-        <field name="method" column="method"  type="string" length="64" />
         <field name="createdAt" column="created_at" type="datetime">
             <gedmo:timestampable on="create" />
         </field>
         <field name="updatedAt" column="updated_at" type="datetime" nullable="true">
             <gedmo:timestampable on="update" />
         </field>
+
+        <many-to-one target-entity="Ekyna\Bundle\PaymentBundle\Entity\Method" field="method">
+            <join-column name="method_id" referenced-column-name="id" on-delete="RESTRICT" nullable="false" />
+        </many-to-one>
 
     </mapped-superclass>
 

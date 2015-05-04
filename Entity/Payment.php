@@ -2,6 +2,7 @@
 
 namespace Ekyna\Bundle\PaymentBundle\Entity;
 
+use Ekyna\Component\Sale\Payment\MethodInterface;
 use Payum\Core\Model\ArrayObject;
 use Ekyna\Component\Sale\Payment\PaymentStates;
 use Ekyna\Component\Sale\Payment\PaymentInterface;
@@ -19,6 +20,11 @@ abstract class Payment extends ArrayObject implements PaymentInterface
     protected $id;
 
     /**
+     * @var MethodInterface
+     */
+    protected $method;
+
+    /**
      * @var float
      */
     protected $amount;
@@ -32,11 +38,6 @@ abstract class Payment extends ArrayObject implements PaymentInterface
      * @var string
      */
     protected $state;
-
-    /**
-     * @var string
-     */
-    protected $method;
 
     /**
      * @var \DateTime
@@ -64,6 +65,23 @@ abstract class Payment extends ArrayObject implements PaymentInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setMethod(MethodInterface $method)
+    {
+        $this->method = $method;
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getMethod()
+    {
+        return $this->method;
     }
 
     /**
@@ -118,24 +136,6 @@ abstract class Payment extends ArrayObject implements PaymentInterface
     public function getState()
     {
         return $this->state;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setMethod($method)
-    {
-        $this->method = $method;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getMethod()
-    {
-        return $this->method;
     }
 
     /**

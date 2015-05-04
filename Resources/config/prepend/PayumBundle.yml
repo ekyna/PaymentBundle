@@ -4,31 +4,7 @@ payum:
             Ekyna\Bundle\PaymentBundle\Entity\PayumSecurityToken: { doctrine: orm }
     storages:
         Ekyna\Bundle\PaymentBundle\Entity\TestPayment: { doctrine: orm }
-    payments:
-        offline:
-            offline: ~
-        paypal_express_checkout:
-            paypal_express_checkout_nvp:
-                username:  %paypal_username%
-                password:  %paypal_password%
-                signature: %paypal_signature%
-                sandbox:   %paypal_sandbox%
-#                actions:
-#                    - ekyna.payum.paypal.action.capture_order_using_express_checkout
-#                    - ekyna.payum.action.payment_status
-#            storages:
-#                Ekyna\Bundle\OrderBundle\Entity\OrderPayment:
-#                    doctrine:
-#                        driver: orm
-#        paypal_test:
-#            paypal_express_checkout_nvp:
-#                api:
-#                    options:
-#                        username:  %paypal_username%
-#                        password:  %paypal_password%
-#                        signature: %paypal_signature%
-#                        sandbox:   %paypal_sandbox%
-#            storages:
-#                Ekyna\Bundle\PaymentBundle\Entity\Payment:
-#                    doctrine:
-#                        driver: orm
+    dynamic_payments:
+        sonata_admin: false
+        config_storage:
+            Ekyna\Bundle\PaymentBundle\Entity\Method: { doctrine: orm }

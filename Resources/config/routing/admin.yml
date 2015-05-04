@@ -1,0 +1,3 @@
+ekyna_payment_method_admin:
+    resource: "admin/method.yml"
+    prefix:   /method

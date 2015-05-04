@@ -1,28 +1,62 @@
 ekyna_payment:
-    new:
-        label: Création
-        message: Votre paiement a bien été créé.
-    pending:
-        label: En attente
-        message: Votre paiement est en attente.
-    processing:
-        label: Traitement
-        message: Votre paiement est en cours de traitement.
-    completed:
-        label: Traitement
-        message: Votre paiement a bien été finalisé.
-    authorized:
-        label: Accepté
-        message: Votre paiement est accepté.
-    failed:
-        label: Refusé
-        message: Votre paiement est refusé.
-    canceled:
-        label: Annulé
-        message: Votre paiement a été annulé.
-    refunded:
-        label: Remboursé
-        message: Votre paiement est remboursé.
-    unknown:
-        label: Inconnu
-        message: Le statut de votre paiement présente une erreur.
+    method:
+        label:
+            singular: Mode de paiement
+            plural: Modes de paiement
+        header:
+            list: Modes de paiement <small>Liste des modes</small>
+            show: Détail du mode de paiement <small>%name%</small>
+            new: Créer un nouveau mode de paiement
+            edit: Modifier le mode de paiement <small>%name%</small>
+            remove: Supprimer le mode de paiement <small>%name%</small>
+        button:
+            list: Liste des modes
+            show: Détail du mode
+            new: Nouveau mode
+            edit: Modifier le mode
+            remove: Supprimer le mode
+        alert:
+            empty_list: Aucun mode de paiement configuré
+    payment:
+        field:
+            amount: Montant
+            currency: Devise
+            method: Mode de paiement
+        state:
+            new:
+                label: Création
+                message: Votre paiement a bien été créé.
+            pending:
+                label: En attente
+                message: Votre paiement est en attente.
+            processing:
+                label: Traitement
+                message: Votre paiement est en cours de traitement.
+            completed:
+                label: Finalisé
+                message: Votre paiement a bien été finalisé.
+            authorized:
+                label: Accepté
+                message: Votre paiement est accepté.
+            failed:
+                label: Refusé
+                message: Votre paiement est refusé.
+            canceled:
+                label: Annulé
+                message: Votre paiement a été annulé.
+            refunded:
+                label: Remboursé
+                message: Votre paiement est remboursé.
+            unknown:
+                label: Inconnu
+                message: Le statut de votre paiement présente une erreur.
+        transition:
+            create: Créer
+            process: Traitement
+            cancel: Annuler
+            fail: Refuser
+            authorize: Accepter
+            complete: Finaliser
+            refund: Rembourser
+            void: Néant
+        impossible_transition: Impossible d'appliquer le changement de statut du paiement demandé.

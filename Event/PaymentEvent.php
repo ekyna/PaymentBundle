@@ -2,16 +2,16 @@
 
 namespace Ekyna\Bundle\PaymentBundle\Event;
 
+use Ekyna\Bundle\AdminBundle\Event\ResourceEvent;
 use Ekyna\Component\Sale\Payment\PaymentInterface;
-use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * PaymentEvent.
- *
+ * Class PaymentEvent
+ * @package Ekyna\Bundle\PaymentBundle\Event
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class PaymentEvent extends Event
+class PaymentEvent extends ResourceEvent
 {
     /**
      * @var PaymentInterface
