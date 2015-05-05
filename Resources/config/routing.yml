@@ -11,9 +11,12 @@ ekyna_payment_admin:
     resource: "routing/admin.yml"
     prefix:   /admin/setting
 
+ekyna_payment_notify:
+    pattern: /api/payment/notify/{payum_token}
+    defaults:
+        _controller: EkynaPaymentBundle:Payment:notify
+
 ekyna_payment_done:
     pattern: /api/payment/done
     defaults:
         _controller: EkynaPaymentBundle:Payment:done
-    requirements:
-        _method: GET

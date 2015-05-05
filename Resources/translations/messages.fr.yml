@@ -41,7 +41,7 @@ ekyna_payment:
             failed:
                 label: Refusé
                 message: Votre paiement est refusé.
-            canceled:
+            cancelled:
                 label: Annulé
                 message: Votre paiement a été annulé.
             refunded:

@@ -7,7 +7,9 @@ use Ekyna\Bundle\PaymentBundle\Entity\TestPayment;
 use Ekyna\Bundle\PaymentBundle\Event\PaymentEvent;
 use Ekyna\Bundle\PaymentBundle\Event\PaymentEvents;
 use Ekyna\Bundle\PaymentBundle\Payum\Request\Done;
+use Payum\Core\Request\Notify;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class PaymentController
@@ -20,7 +22,7 @@ class PaymentController extends Controller
      * Prepare (test) action.
      *
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function prepareAction(Request $request)
     {
@@ -47,24 +49,46 @@ class PaymentController extends Controller
     }
 
     /**
+     * Notify action.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function notifyAction(Request $request)
+    {
+        $token = $this->getHttpRequestVerifier()->verify($request);
+
+        $gateway = $this->getPayum()->getPayment($token->getPaymentName());
+
+        $gateway->execute($notify = new Notify($token));
+
+        /** @var \Ekyna\Component\Sale\Payment\PaymentInterface $payment */
+        $payment = $notify->getFirstModel();
+
+        $event = new PaymentEvent($payment);
+        $this->getDispatcher()->dispatch(PaymentEvents::NOTIFY, $event);
+
+        return new Response('', 204);
+    }
+
+    /**
      * Done action.
      *
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function doneAction(Request $request)
     {
         $debug = $this->container->getParameter('kernel.debug');
 
-        $payumRequestVerifier = $this->get('payum.security.http_request_verifier');
-        $token = $payumRequestVerifier->verify($request);
+        $token = $this->getHttpRequestVerifier()->verify($request);
 
-        $payumPayment = $this->get('payum')->getPayment($token->getPaymentName());
+        $gateway = $this->getPayum()->getPayment($token->getPaymentName());
 
-        $payumPayment->execute($done = new Done($token));
+        $gateway->execute($done = new Done($token));
 
         if (!$debug) {
-            $payumRequestVerifier->invalidate($token);
+            $this->getHttpRequestVerifier()->invalidate($token);
         }
 
         /** @var \Ekyna\Component\Sale\Payment\PaymentInterface $payment */
@@ -83,5 +107,25 @@ class PaymentController extends Controller
         }
 
         return $this->redirect('/');
+    }
+
+    /**
+     * Returns the payum token verifier.
+     *
+     * @return \Payum\Core\Bridge\Symfony\Security\HttpRequestVerifier
+     */
+    private function getHttpRequestVerifier()
+    {
+        return $this->get('payum.security.http_request_verifier');
+    }
+
+    /**
+     * Returns the Payum registry.
+     *
+     * @return \Payum\Core\Registry\DynamicRegistry
+     */
+    private function getPayum()
+    {
+        return $this->get('payum');
     }
 }

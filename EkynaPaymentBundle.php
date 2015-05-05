@@ -4,6 +4,7 @@ namespace Ekyna\Bundle\PaymentBundle;
 
 use Ekyna\Bundle\CoreBundle\AbstractBundle;
 use Ekyna\Bundle\PaymentBundle\DependencyInjection\Compiler\AdminMenuPass;
+use Ekyna\Bundle\PaymentBundle\DependencyInjection\Compiler\ChangePayumPathPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
@@ -13,9 +14,14 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class EkynaPaymentBundle extends AbstractBundle
 {
+    /**
+     * {@inheritdoc}
+     */
     public function build(ContainerBuilder $container)
     {
         parent::build($container);
+
         $container->addCompilerPass(new AdminMenuPass());
+        $container->addCompilerPass(new ChangePayumPathPass());
     }
 }
