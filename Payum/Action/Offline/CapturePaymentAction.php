@@ -21,13 +21,13 @@ class CapturePaymentAction extends AbstractCapturePaymentAction
     {
         $details = $payment->getDetails();
 
-        if (!empty($details)) {
+        if (array_key_exists(Constants::FIELD_PAID, $details)) {
             return;
         }
 
-        $payment->setDetails(array(
-            Constants::FIELD_PAID => false,
-        ));
+        $details[Constants::FIELD_PAID] = false;
+
+        $payment->setDetails($details);
     }
 
     /**
