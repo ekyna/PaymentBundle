@@ -7,7 +7,9 @@
 
     <class name="Ekyna\Bundle\PaymentBundle\Entity\Payment">
         <property name="method">
-            <constraint name="NotNull" />
+            <constraint name="NotNull">
+                <option name="message">ekyna_payment.payment.method.not_null</option>
+            </constraint>
         </property>
         <property name="amount">
             <constraint name="GreaterThan">
@@ -32,6 +34,24 @@
         </property>
         <property name="paymentName">
             <constraint name="NotBlank" />
+        </property>
+    </class>
+
+    <class name="Ekyna\Bundle\PaymentBundle\Entity\Message">
+        <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+            <option name="fields">
+                <value>method</value>
+                <value>state</value>
+            </option>
+            <option name="message">ekyna_payment.message.already_exists</option>
+        </constraint>
+        <property name="state">
+            <constraint name="Choice">
+                <option name="callback">
+                    <value>Ekyna\Bundle\PaymentBundle\Model\PaymentStates</value>
+                    <value>getConstants</value>
+                </option>
+            </constraint>
         </property>
     </class>
 

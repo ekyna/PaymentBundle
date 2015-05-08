@@ -15,6 +15,9 @@ ekyna_payment:
             new: Nouveau mode
             edit: Modifier le mode
             remove: Supprimer le mode
+            choose: Je choisi de régler par %payment_name%
+        field:
+            factory_name: Passerelle
         alert:
             empty_list: Aucun mode de paiement configuré
     payment:
@@ -60,3 +63,10 @@ ekyna_payment:
             refund: Rembourser
             void: Néant
         impossible_transition: Impossible d'appliquer le changement de statut du paiement demandé.
+    message:
+        label:
+            singular: Message
+            plural: Messages
+        field:
+            flash: Flash
+            email: Email

@@ -13,23 +13,38 @@
 
     <ul class="nav nav-tabs">
         <li class="active"><a href="#payment-method-general" data-toggle="tab">{{ 'ekyna_core.field.general'|trans }}</a></li>
+        {% if flow.getCurrentStepNumber() == 2 %}
+        <li><a href="#payment-method-content" data-toggle="tab">{{ 'ekyna_core.field.content'|trans }}</a></li>
+        <li><a href="#payment-method-messages" data-toggle="tab">{{ 'ekyna_payment.message.label.plural'|trans }}</a></li>
+        {% endif %}
     </ul>
 
     <div class="panel-body form-body">
         {{ bootstrap_set_style('horizontal') }}
         <div class="tab-content">
+            {{ form_errors(form) }}
             <div class="tab-pane active" id="payment-method-general">
-                {{ form_errors(form) }}
                 {% if flow.getCurrentStepNumber() == 1 %}
                     {{ form_row(form.factoryName) }}
                 {% else %}
                     {{ form_row(form.paymentName) }}
                     {{ form_row(form.factoryName) }}
+                    {% if form.config is defined %}
                     {{ form_row(form.config) }}
+                    {% endif %}
                     {{ form_row(form.enabled) }}
                 {% endif %}
-                {{ form_rest(form) }}
             </div>
+            {% if flow.getCurrentStepNumber() == 2 %}
+            <div class="tab-pane" id="payment-method-content">
+                {{ form_row(form.image) }}
+                {{ form_row(form.description) }}
+            </div>
+            <div class="tab-pane" id="payment-method-messages">
+                {{ form_widget(form.messages) }}
+            </div>
+            {% endif %}
+            {{ form_rest(form) }}
         </div>
     </div>
 

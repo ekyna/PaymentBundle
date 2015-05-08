@@ -1,5 +1,7 @@
 <ul class="nav nav-tabs">
     <li class="active"><a href="#payment-method-general" data-toggle="tab">{{ 'ekyna_core.field.general'|trans }}</a></li>
+    <li><a href="#payment-method-content" data-toggle="tab">{{ 'ekyna_core.field.content'|trans }}</a></li>
+    <li><a href="#payment-method-messages" data-toggle="tab">{{ 'ekyna_payment.message.label.plural'|trans }}</a></li>
 </ul>
 <div class="panel-body form-body">
     {{ bootstrap_set_style('horizontal') }}
@@ -11,8 +13,15 @@
             {% if form.config is defined %}
             {{ form_row(form.config) }}
             {% endif %}
-            {#{{ form_row(form.enabled) }}#}
+            {{ form_row(form.enabled) }}
         </div>
-        {{ form_rest(form) }}
+        <div class="tab-pane" id="payment-method-content">
+            {{ form_row(form.image) }}
+            {{ form_row(form.description) }}
+        </div>
+        <div class="tab-pane" id="payment-method-messages">
+            {{ form_row(form.messages) }}
+        </div>
     </div>
+    {{ form_rest(form) }}
 </div>

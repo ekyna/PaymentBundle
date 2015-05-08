@@ -57,13 +57,25 @@ class PaymentExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
+            new \Twig_SimpleFunction('get_payment_state',  array($this, 'getPaymentState'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('render_payment_state',  array($this, 'renderPaymentState'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('render_payment_actions',  array($this, 'renderPaymentActions'), array('is_safe' => array('html'))),
         );
     }
 
     /**
-     * Renders the payment state.
+     * Renders the translated payment state.
+     *
+     * @param string $state
+     * @return string
+     */
+    public function getPaymentState($state)
+    {
+        return $this->translator->trans(PaymentStates::getLabel($state));
+    }
+
+    /**
+     * Renders the payment state label.
      *
      * @param PaymentInterface $payment
      * @return string
@@ -74,7 +86,7 @@ class PaymentExtension extends \Twig_Extension
         return sprintf(
             '<span class="label label-%s">%s</span>',
             PaymentStates::getTheme($state),
-            $this->translator->trans(PaymentStates::getLabel($state))
+            $this->getPaymentState($state)
         );
     }
 

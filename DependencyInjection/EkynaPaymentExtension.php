@@ -20,4 +20,30 @@ class EkynaPaymentExtension extends AbstractExtension
     {
         $this->configure($configs, 'ekyna_payment', new Configuration(), $container);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function prepend(ContainerBuilder $container)
+    {
+        parent::prepend($container);
+
+        $bundles = $container->getParameter('kernel.bundles');
+
+        if (array_key_exists('TwigBundle', $bundles)) {
+            $this->configureTwigBundle($container);
+        }
+    }
+
+    /**
+     * Configures the TwigBundle.
+     *
+     * @param ContainerBuilder $container
+     */
+    protected function configureTwigBundle(ContainerBuilder $container)
+    {
+        $container->prependExtensionConfig('twig', array(
+            'form' => array('resources' => array('EkynaPaymentBundle:Form:form_div_layout.html.twig')),
+        ));
+    }
 }

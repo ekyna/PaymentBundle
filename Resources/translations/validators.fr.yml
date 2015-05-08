@@ -1,0 +1,6 @@
+ekyna_payment:
+    payment:
+        method:
+            not_null: Veuillez choisir un mode de paiement.
+    message:
+        already_exists: Un message existe déjà pour cette méthode et ce statut.

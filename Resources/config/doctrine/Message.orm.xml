@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                            http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Ekyna\Bundle\PaymentBundle\Entity\Message"
+            table="pay_message">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO" />
+        </id>
+
+        <field name="state" type="string" column="state" length="16" />
+        <field name="flash" type="text" column="flash" nullable="true" />
+        <field name="email" type="text" column="email" nullable="true" />
+
+        <many-to-one target-entity="Ekyna\Bundle\PaymentBundle\Entity\Method"
+                     field="method" inversed-by="messages" orphan-removal="true">
+            <join-column name="method_id" referenced-column-name="id" on-delete="CASCADE" nullable="true" />
+        </many-to-one>
+
+    </entity>
+
+</doctrine-mapping>

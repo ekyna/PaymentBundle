@@ -38,17 +38,17 @@ class MethodChoiceType extends AbstractType
         $queryBuilder = function (Options $options) {
             if (!$options['disabled']) {
                 return function (EntityRepository $repository) {
-                    return $repository->createQueryBuilder('g')->where('g.enabled = true');
+                    return $repository->createQueryBuilder('m')->where('m.enabled = true');
                 };
             } else {
                 return function (EntityRepository $repository) {
-                    return $repository->createQueryBuilder('g');
+                    return $repository->createQueryBuilder('m');
                 };
             }
         };
         $resolver
             ->setDefaults(array(
-                'label' => 'ekyna_payment.method.label.singular',
+                'label' => false,
                 'expanded' => true,
                 'class' => $this->dataClass,
                 'query_builder' => $queryBuilder,

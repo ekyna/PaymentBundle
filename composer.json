@@ -20,7 +20,7 @@
     "require" : {
         "php" : ">=5.4",
         "symfony/framework-bundle" : "~2.3",
-        "ekyna/admin-bundle" : "0.1.*@dev",
+        "ekyna/cms-bundle" : "0.1.*@dev",
         "ekyna/sale" : "0.1.*@dev",
         "payum/payum": "0.14.*",
         "payum/payum-bundle": "0.14.*",

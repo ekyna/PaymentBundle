@@ -6,19 +6,32 @@
                         http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="ekyna_payment.method_choice.form_type.class">Ekyna\Bundle\PaymentBundle\Form\Type\MethodChoiceType</parameter>
+        <parameter key="ekyna_payment.method.form_type.class">Ekyna\Bundle\PaymentBundle\Form\Type\MethodType</parameter>
         <parameter key="ekyna_payment.payment.form_type.class">Ekyna\Bundle\PaymentBundle\Form\Type\PaymentType</parameter>
+        <parameter key="ekyna_payment.method_choice.form_type.class">Ekyna\Bundle\PaymentBundle\Form\Type\MethodChoiceType</parameter>
     </parameters>
 
     <services>
 
         <!-- Form types -->
+        <service id="ekyna_payment.method.form_type" class="%ekyna_payment.method.form_type.class%">
+            <argument>%ekyna_payment.method.class%</argument>
+            <argument id="payum" type="service" />
+            <tag name="form.type" alias="ekyna_payment_method" />
+        </service>
         <service id="ekyna_payment.method_choice.form_type" class="%ekyna_payment.method_choice.form_type.class%">
             <argument>%ekyna_payment.method.class%</argument>
             <tag name="form.type" alias="ekyna_payment_method_choice" />
         </service>
         <service id="ekyna_payment.payment.form_type" class="%ekyna_payment.payment.form_type.class%">
             <tag name="form.type" alias="ekyna_payment_payment" />
+        </service>
+
+        <service id="ekyna_payment.message.form_type" class="Ekyna\Bundle\PaymentBundle\Form\Type\MessageType">
+            <tag name="form.type" alias="ekyna_payment_message" />
+        </service>
+        <service id="ekyna_payment.messages.form_type" class="Ekyna\Bundle\PaymentBundle\Form\Type\MessagesType">
+            <tag name="form.type" alias="ekyna_payment_messages" />
         </service>
         <service id="ekyna_payment.test_payment.form_type" class="Ekyna\Bundle\PaymentBundle\Form\Type\TestPaymentType">
             <tag name="form.type" alias="ekyna_payment_test_payment" />

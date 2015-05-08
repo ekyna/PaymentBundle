@@ -17,12 +17,14 @@
 <div class="show show-with-tabs">
     <ul class="nav nav-tabs">
 	    <li class="active"><a href="#payment-method-general" data-toggle="tab">{{ 'ekyna_core.field.general'|trans }}</a></li>
+	    <li><a href="#payment-method-content" data-toggle="tab">{{ 'ekyna_core.field.content'|trans }}</a></li>
+	    <li><a href="#payment-method-messages" data-toggle="tab">{{ 'ekyna_payment.message.label.plural'|trans }}</a></li>
 	</ul>
 	<div class="show-body">
 	    <div class="tab-content">
 		    <div class="tab-pane active" id="payment-method-general">
                 {{ show_row(method.paymentName, 'text', 'ekyna_core.field.name') }}
-                {{ show_row(method.factoryName, 'text', 'ekyna_core.field.type') }}
+                {{ show_row(method.factoryName, 'text', 'ekyna_payment.method.field.factory_name') }}
                 {% if method.config is not empty %}
                 <div class="row show-row">
                     <div class="col-md-2 show-label">{{ 'ekyna_core.field.config'|trans }}</div>
@@ -40,6 +42,57 @@
                 {% endif %}
                 {{ show_row(method.enabled, 'checkbox', 'ekyna_core.field.enabled') }}
 		    </div>
+            <div class="tab-pane" id="payment-method-content">
+                {{ show_row(method.image, 'image', 'ekyna_core.field.image') }}
+                {{ show_row(path('ekyna_payment_method_admin_tinymce', identifiers|merge({'methodId': method.id})), 'tinymce', 'ekyna_core.field.description') }}
+            </div>
+            <div class="tab-pane" id="payment-method-messages">
+                <ul class="nav nav-tabs">
+                    {% for message in method.messages %}
+                    <li{% if loop.first %} class="active"{% endif %}>
+                        <a href="#payment-method-state-{{ message.state }}" data-toggle="tab">
+                            {{ get_payment_state(message.state) }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div class="panel-body" style="border: 1px solid #ddd; border-top: none; padding:15px 15px 1px 15px; margin-bottom: 15px;">
+                    <div class="tab-content">
+                        {% for message in method.messages %}
+                        <div class="tab-pane{% if loop.first %} active{% endif %}" id="payment-method-state-{{ message.state }}">
+                            <div class="row show-row">
+                                <div class="col-md-2 show-label">
+                                    {{ 'ekyna_payment.message.field.flash'|trans }}
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="show-widget show-widget-textarea">
+                                        {% if message.flash is empty %}
+                                            <em>{{ 'ekyna_core.value.undefined'|trans }}</em>
+                                        {% else %}
+                                            {{ message.flash|raw }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row show-row">
+                                <div class="col-md-2 show-label">
+                                    {{ 'ekyna_payment.message.field.email'|trans }}
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="show-widget show-widget-textarea">
+                                        {% if message.email is empty %}
+                                            <em>{{ 'ekyna_core.value.undefined'|trans }}</em>
+                                        {% else %}
+                                            {{ message.email|raw }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
         </div>
 	</div>
 </div>

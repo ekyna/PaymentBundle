@@ -50,7 +50,7 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('entity')->defaultValue('Ekyna\Bundle\PaymentBundle\Entity\Method')->end()
                                 ->scalarNode('controller')->defaultValue('Ekyna\Bundle\PaymentBundle\Controller\Admin\MethodController')->end()
                                 ->scalarNode('operator')->end()
-                                ->scalarNode('repository')->end()
+                                ->scalarNode('repository')->defaultValue('Ekyna\Bundle\PaymentBundle\Entity\MethodRepository')->end()
                                 ->scalarNode('form')->defaultValue('Ekyna\Bundle\PaymentBundle\Form\Type\MethodType')->end()
                                 ->scalarNode('table')->defaultValue('Ekyna\Bundle\PaymentBundle\Table\Type\MethodType')->end()
                                 ->scalarNode('event')->end()
