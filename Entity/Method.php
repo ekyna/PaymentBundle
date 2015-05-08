@@ -68,9 +68,7 @@ class Method extends BasePaymentConfig implements MethodInterface
     }
 
     /**
-     * Sets the factory name
-     * @param string $factoryName
-     * @return Method
+     * {@inheritDoc}
      */
     public function setFactoryName($factoryName)
     {
@@ -87,10 +85,7 @@ class Method extends BasePaymentConfig implements MethodInterface
     }
 
     /**
-     * Sets the payment name.
-     *
-     * @param string $paymentName
-     * @return Method
+     * {@inheritDoc}
      */
     public function setPaymentName($paymentName)
     {
@@ -107,10 +102,7 @@ class Method extends BasePaymentConfig implements MethodInterface
     }
 
     /**
-     * Sets the config.
-     *
-     * @param array $config
-     * @return Method
+     * {@inheritDoc}
      */
     public function setConfig(array $config)
     {
@@ -129,18 +121,18 @@ class Method extends BasePaymentConfig implements MethodInterface
     /**
      * {@inheritdoc}
      */
-    public function getDescription()
+    public function setDescription($description)
     {
-        return $this->description;
+        $this->description = $description;
+        return $this;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setDescription($description)
+    public function getDescription()
     {
-        $this->description = $description;
-        return $this;
+        return $this->description;
     }
 
     /**
@@ -195,17 +187,17 @@ class Method extends BasePaymentConfig implements MethodInterface
     /**
      * {@inheritdoc}
      */
-    public function getEnabled()
+    public function setEnabled($enabled)
     {
-        return $this->enabled;
+        $this->enabled = $enabled;
+        return $this;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setEnabled($enabled)
+    public function getEnabled()
     {
-        $this->enabled = $enabled;
-        return $this;
+        return $this->enabled;
     }
 }
