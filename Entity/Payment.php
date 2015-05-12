@@ -3,9 +3,9 @@
 namespace Ekyna\Bundle\PaymentBundle\Entity;
 
 use Ekyna\Component\Sale\Payment\MethodInterface;
-use Payum\Core\Model\ArrayObject;
-use Ekyna\Component\Sale\Payment\PaymentStates;
 use Ekyna\Component\Sale\Payment\PaymentInterface;
+use Ekyna\Component\Sale\Payment\PaymentStates;
+use Payum\Core\Model\ArrayObject;
 
 /**
  * Class Payment
@@ -28,12 +28,12 @@ abstract class Payment extends ArrayObject implements PaymentInterface
      * @var float
      */
     protected $amount;
-    
+
     /**
      * @var string
      */
     protected $currency;
-    
+
     /**
      * @var string
      */
@@ -57,6 +57,7 @@ abstract class Payment extends ArrayObject implements PaymentInterface
     {
         $this->currency = 'EUR';
         $this->state = PaymentStates::STATE_NEW;
+        $this->createdAt = new \DateTime();
     }
 
     /**
@@ -94,7 +95,7 @@ abstract class Payment extends ArrayObject implements PaymentInterface
         return $this;
     }
 
-	/**
+    /**
      * {@inheritdoc}
      */
     public function getAmount()
@@ -112,7 +113,7 @@ abstract class Payment extends ArrayObject implements PaymentInterface
         return $this;
     }
 
-	/**
+    /**
      * {@inheritdoc}
      */
     public function getCurrency()
@@ -126,7 +127,7 @@ abstract class Payment extends ArrayObject implements PaymentInterface
     public function setState($state)
     {
         $this->state = $state;
-        
+
         return $this;
     }
 
