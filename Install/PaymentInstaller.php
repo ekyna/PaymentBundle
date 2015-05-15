@@ -7,6 +7,7 @@ use Ekyna\Bundle\InstallBundle\Install\OrderedInstallerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\File\File;
 
@@ -15,29 +16,43 @@ use Symfony\Component\HttpFoundation\File\File;
  * @package Ekyna\Bundle\PaymentBundle\Install
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class PaymentInstaller implements OrderedInstallerInterface
+class PaymentInstaller implements OrderedInstallerInterface, ContainerAwareInterface
 {
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
+
+    /**
+     * Sets the container.
+     *
+     * @param ContainerInterface $container
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+    }
+
     /**
      * {@inheritdoc}
      */
-    public function install(ContainerInterface $container, Command $command, InputInterface $input, OutputInterface $output)
+    public function install(Command $command, InputInterface $input, OutputInterface $output)
     {
         $output->writeln('<info>[Payment] Creating default methods:</info>');
-        $this->createPaymentMethods($container, $output);
+        $this->createPaymentMethods($output);
         $output->writeln('');
     }
 
     /**
      * Creates default payment methods entities.
      *
-     * @param ContainerInterface $container
      * @param OutputInterface $output
      */
-    private function createPaymentMethods(ContainerInterface $container, OutputInterface $output)
+    private function createPaymentMethods(OutputInterface $output)
     {
-        $em = $container->get('ekyna_payment.method.manager');
-        $registry = $container->get('payum');
-        $repository = $container->get('ekyna_payment.method.repository');
+        $em = $this->container->get('ekyna_payment.method.manager');
+        //$registry = $this->container->get('payum');
+        $repository = $this->container->get('ekyna_payment.method.repository');
         $imageDir = realpath(__DIR__.'/../Resources/asset/img');
 
         $methods = array(
@@ -52,6 +67,9 @@ class PaymentInstaller implements OrderedInstallerInterface
                 $name,
                 str_pad('.', 44 - mb_strlen($name), '.', STR_PAD_LEFT)
             ));
+
+            // TODO check that factiory method exists
+
             if (null !== $method = $repository->findOneBy(array('paymentName' => $name))) {
                 $output->writeln('already exists.');
                 continue;
