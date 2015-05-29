@@ -53,3 +53,9 @@
     font-weight: bold;
     font-size: 16px;
 }
+
+@media (min-width: 768px) {
+    .payment-method-choice .payment-method-choice-visual {
+        text-align: right;
+    }
+}
