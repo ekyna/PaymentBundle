@@ -22,21 +22,15 @@ class MessageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options = array())
     {
         $builder
-            ->add('flash', 'textarea', array(
+            ->add('flash', 'tinymce', array(
                 'label' => 'ekyna_payment.message.field.flash',
+                'theme' => 'simple',
                 'required' => false,
-                'attr' => array(
-                    'class' => 'tinymce',
-                    'data-theme' => 'simple',
-                )
             ))
-            ->add('email', 'textarea', array(
+            ->add('email', 'tinymce', array(
                 'label' => 'ekyna_payment.message.field.email',
+                'theme' => 'simple',
                 'required' => false,
-                'attr' => array(
-                    'class' => 'tinymce',
-                    'data-theme' => 'simple',
-                )
             ))
         ;
     }

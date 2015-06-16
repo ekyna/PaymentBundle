@@ -20,8 +20,8 @@
     "require" : {
         "php" : ">=5.4",
         "symfony/framework-bundle" : "~2.3",
-        "ekyna/cms-bundle" : "0.1.*@dev",
-        "ekyna/sale" : "0.1.*@dev",
+        "ekyna/cms-bundle" : "0.3.*@dev",
+        "ekyna/sale" : "0.3.*@dev",
         "payum/payum": "0.14.*",
         "payum/payum-bundle": "0.14.*",
         "winzou/state-machine-bundle": "~0.2",
@@ -35,7 +35,7 @@
     "target-dir" : "Ekyna/Bundle/PaymentBundle",
     "extra" : {
         "branch-alias" : {
-            "dev-master" : "0.2.x-dev"
+            "dev-master" : "0.3.x-dev"
         }
     }
 }

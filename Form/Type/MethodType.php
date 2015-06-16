@@ -3,6 +3,7 @@
 namespace Ekyna\Bundle\PaymentBundle\Form\Type;
 
 use Ekyna\Bundle\AdminBundle\Form\Type\ResourceFormType;
+use Ekyna\Bundle\MediaBundle\Model\MediaTypes;
 use Ekyna\Bundle\PaymentBundle\Form\EventListener\BuildConfigSubscriber;
 use Payum\Core\Registry\RegistryInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -45,7 +46,10 @@ class MethodType extends ResourceFormType
                 'label' => 'ekyna_payment.method.field.factory_name',
                 'disabled' => true,
             ))
-            ->add('image', 'ekyna_cms_image')
+            ->add('media', 'ekyna_media_choice', array(
+                'label' => 'ekyna_core.field.image',
+                'types' => MediaTypes::IMAGE,
+            ))
             ->add('description', 'tinymce', array(
                 'label' => 'ekyna_core.field.description',
             ))

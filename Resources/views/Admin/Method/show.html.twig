@@ -43,7 +43,7 @@
                 {{ show_row(method.enabled, 'checkbox', 'ekyna_core.field.enabled') }}
 		    </div>
             <div class="tab-pane" id="payment-method-content">
-                {{ show_row(method.image, 'image', 'ekyna_core.field.image') }}
+                {{ show_row(method.media, 'media', 'ekyna_core.field.image') }}
                 {{ show_row(path('ekyna_payment_method_admin_tinymce', identifiers|merge({'methodId': method.id})), 'tinymce', 'ekyna_core.field.description') }}
             </div>
             <div class="tab-pane" id="payment-method-messages">
