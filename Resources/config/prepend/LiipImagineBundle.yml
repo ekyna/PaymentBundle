@@ -3,7 +3,8 @@ liip_imagine:
     filter_sets:
         payment_method:
             quality: 70
-            data_loader: local_image
+            cache: local_media
+            data_loader: local_media
             filters:
                 thumbnail: { size: [145, 109], mode: outbound }
             post_processors:
