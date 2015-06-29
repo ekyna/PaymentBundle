@@ -29,7 +29,7 @@
                 <div class="row show-row">
                     <div class="col-md-2 show-label">{{ 'ekyna_core.field.config'|trans }}</div>
                     <div class="col-md-10">
-                        <div class="show-widget show-widget-textarea">
+                        <div class="show-widget show-widget-block">
                             <dl class="dl-horizontal">
                             {% for key, value in method.config %}
                                 <dt>{{ key }}</dt>
@@ -65,7 +65,7 @@
                                     {{ 'ekyna_payment.message.field.flash'|trans }}
                                 </div>
                                 <div class="col-md-10">
-                                    <div class="show-widget show-widget-textarea">
+                                    <div class="show-widget show-widget-block">
                                         {% if message.flash is empty %}
                                             <em>{{ 'ekyna_core.value.undefined'|trans }}</em>
                                         {% else %}
@@ -79,7 +79,7 @@
                                     {{ 'ekyna_payment.message.field.email'|trans }}
                                 </div>
                                 <div class="col-md-10">
-                                    <div class="show-widget show-widget-textarea">
+                                    <div class="show-widget show-widget-block">
                                         {% if message.email is empty %}
                                             <em>{{ 'ekyna_core.value.undefined'|trans }}</em>
                                         {% else %}
