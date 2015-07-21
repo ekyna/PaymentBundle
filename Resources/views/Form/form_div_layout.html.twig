@@ -36,8 +36,8 @@
             <div class="col-sm-4 payment-method-choice-visual">
                 {{ form_widget(child) }}
                 <label for="{{ child.vars.id }}">
-                {% if method.image.path %}
-                    <img src="{{ method.image.path|imagine_filter('payment_method') }}" alt="{{ method.image.alt }}" class="img-responsive">
+                {% if method.media.path %}
+                    <img src="{{ method.media.path|imagine_filter('payment_method') }}" alt="{{ method.media.title }}" class="img-responsive">
                 {% else %}
                     <img src="{{ asset('bundles/ekynapayment/img/money.png') }}" alt="Payment" class="img-responsive">
                 {% endif %}
