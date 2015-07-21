@@ -19,7 +19,7 @@ class MessageType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options = array())
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('flash', 'tinymce', array(
@@ -38,7 +38,7 @@ class MessageType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildView(FormView $view, FormInterface $form, array $options = array())
+    public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $message = $form->getData();
 
