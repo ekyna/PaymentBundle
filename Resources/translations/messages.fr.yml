@@ -21,10 +21,14 @@ ekyna_payment:
         alert:
             empty_list: Aucun mode de paiement configuré
     payment:
+        label:
+            singular: Paiement
+            plural: Paiements
         field:
             amount: Montant
             currency: Devise
             method: Mode de paiement
+            state: Statut
         state:
             new:
                 label: Création

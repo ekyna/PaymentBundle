@@ -44,8 +44,7 @@ class PaymentExtension extends \Twig_Extension
         TranslatorInterface $translator,
         UrlGeneratorInterface $urlGenerator,
         FactoryInterface $factory
-    )
-    {
+    ) {
         $this->translator = $translator;
         $this->urlGenerator = $urlGenerator;
         $this->factory = $factory;
@@ -77,12 +76,12 @@ class PaymentExtension extends \Twig_Extension
     /**
      * Renders the payment state label.
      *
-     * @param PaymentInterface $payment
+     * @param string|PaymentInterface $stateOrPayment
      * @return string
      */
-    public function renderPaymentState(PaymentInterface $payment)
+    public function renderPaymentState($stateOrPayment)
     {
-        $state = $payment->getState();
+        $state = $stateOrPayment instanceof PaymentInterface ? $stateOrPayment->getState() : $stateOrPayment;
         return sprintf(
             '<span class="label label-%s">%s</span>',
             PaymentStates::getTheme($state),
@@ -113,8 +112,8 @@ class PaymentExtension extends \Twig_Extension
             if ($sm->can($transition)) {
                 $label = $this->translator->trans(PaymentTransitions::getLabel($transition));
                 $path = $this->urlGenerator->generate($route, array_merge(
-                    $routeParameters, array('transition' => $transition))
-                );
+                    $routeParameters, array('transition' => $transition)
+                ));
                 $theme = PaymentTransitions::getTheme($transition);
                 $buttons[] = sprintf($model, $path, $theme, strtolower($label), $label);
             }

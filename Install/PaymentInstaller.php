@@ -95,9 +95,24 @@ class PaymentInstaller implements OrderedInstallerInterface, ContainerAwareInter
         $imageDir = realpath(__DIR__.'/../Resources/asset/img');
 
         $methods = array(
-            'Chèque'   => array('offline', 'cheque.png', '<p>Veuillez adresser votre chèque à l\'ordre de ...</p>'),
-            'Virement' => array('offline', 'virement.png', '<p>Veuillez adresser votre virement à l\'ordre de ...</p>'),
-            'Paypal'   => array('paypal_express_checkout_nvp', 'paypal.png', '<p>Réglez avec votre compte paypal, ou votre carte bancaire.</p>'),
+            'Chèque'   => array(
+                'offline',
+                'cheque.png',
+                '<p>Veuillez adresser votre chèque à l\'ordre de ...</p>',
+                true
+            ),
+            'Virement' => array(
+                'offline',
+                'virement.png',
+                '<p>Veuillez adresser votre virement à l\'ordre de ...</p>',
+                true
+            ),
+            'Paypal'   => array(
+                'paypal_express_checkout_nvp',
+                'paypal.png',
+                '<p>Réglez avec votre compte paypal, ou votre carte bancaire.</p>',
+                false
+            ),
         );
 
         foreach ($methods as $name => $options) {
@@ -129,6 +144,7 @@ class PaymentInstaller implements OrderedInstallerInterface, ContainerAwareInter
                 ->setFactoryName($options[0])
                 ->setMedia($image)
                 ->setDescription($options[2])
+                ->setEnabled($options[3])
             ;
 
             $em->persist($method);
