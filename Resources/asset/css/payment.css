@@ -16,22 +16,18 @@
 }
 
 .payment-method-choice .payment-method-choice-visual {
-    line-height: 110px;
     vertical-align: middle;
+    cursor: pointer;
 }
 
 .payment-method-choice .payment-method-choice-visual input {
-    display: inline-block;
-    line-height: 100px;
-    vertical-align: middle;
-    margin-right: 6px;
+    display: none;
 }
 
 .payment-method-choice .payment-method-choice-visual label {
     font-weight: normal;
     display: inline-block;
-    max-width: 90%;
-    line-height: 110px;
+    width: 100%;
     vertical-align: middle;
     border: 1px solid #ddd;
     padding: 5px;

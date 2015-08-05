@@ -33,7 +33,7 @@
         {% for child in form %}
         {% set method = form.vars.choices[child.vars.value].data %}
         <div class="row">
-            <div class="col-sm-4 payment-method-choice-visual">
+            <div class="col-sm-3 payment-method-choice-visual">
                 {{ form_widget(child) }}
                 <label for="{{ child.vars.id }}">
                 {% if method.media.path %}
@@ -43,7 +43,7 @@
                 {% endif %}
                 </label>
             </div>
-            <div class="col-sm-8 payment-method-choice-description">
+            <div class="col-sm-9 payment-method-choice-description">
                 <p>{{ method.paymentName }}</p>
                 {{ method.description|raw }}
                 <p>

@@ -51,6 +51,16 @@ class PaymentExtension extends \Twig_Extension
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function getGlobals()
+    {
+        return array(
+            'payment_states' => PaymentStates::getConstants(),
+        );
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getFunctions()
