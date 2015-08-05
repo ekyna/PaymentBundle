@@ -8,8 +8,8 @@ winzou_state_machine:
             pending:    ~
             processing: ~
             cancelled:  ~
-            failed:     ~
             authorized: ~
+            failed:     ~
             completed:  ~
             refunded:   ~
             unknown:    ~
@@ -24,12 +24,12 @@ winzou_state_machine:
             cancel:
                 from: [new, pending, processing]
                 to:   cancelled
-            fail:
-                from: [new, pending, processing]
-                to:   failed
             authorize:
                 from: [new, pending, processing]
                 to:   authorized
+            fail:
+                from: [new, pending, processing, authorized]
+                to:   failed
             complete:
                 from: [new, pending, processing, authorized]
                 to:   completed
