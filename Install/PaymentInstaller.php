@@ -4,6 +4,7 @@ namespace Ekyna\Bundle\PaymentBundle\Install;
 
 use Ekyna\Bundle\MediaBundle\Entity\Folder;
 use Ekyna\Bundle\InstallBundle\Install\OrderedInstallerInterface;
+use Ekyna\Bundle\MediaBundle\Model\MediaTypes;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -83,6 +84,7 @@ class PaymentInstaller implements OrderedInstallerInterface, ContainerAwareInter
      * Creates default payment methods entities.
      *
      * @param OutputInterface $output
+     * @throws \Exception
      */
     private function createPaymentMethods(OutputInterface $output)
     {
@@ -129,12 +131,22 @@ class PaymentInstaller implements OrderedInstallerInterface, ContainerAwareInter
                 continue;
             }
 
+            $source = $imageDir.'/'.$options[1];
+            if (!file_exists($source)) {
+                throw new \Exception(sprintf('File "%s" does not exists.', $source));
+            }
+            $target = sys_get_temp_dir() . '/' . $options[1];
+            if (!copy($source, $target)) {
+                throw new \Exception(sprintf('Failed to copy "%s" into "%s".', $source, $target));
+            }
+
             /** @var \Ekyna\Bundle\MediaBundle\Model\MediaInterface $image */
             $image = $mediaRepository->createNew();
             $image
-                ->setFile(new File($imageDir.'/'.$options[1]))
+                ->setFile(new File($target))
                 ->setFolder($folder)
                 ->setTitle($name)
+                ->setType(MediaTypes::IMAGE)
             ;
 
             /** @var \Ekyna\Bundle\PaymentBundle\Entity\Method $method */
