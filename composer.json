@@ -28,11 +28,10 @@
         "craue/formflow-bundle": "~2.1"
     },
     "autoload" : {
-        "psr-0" : {
-            "Ekyna\\Bundle\\PaymentBundle" : ""
+        "psr-4" : {
+            "Ekyna\\Bundle\\PaymentBundle\\" : ""
         }
     },
-    "target-dir" : "Ekyna/Bundle/PaymentBundle",
     "extra" : {
         "branch-alias" : {
             "dev-master" : "0.3.x-dev"
