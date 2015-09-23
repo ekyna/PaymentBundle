@@ -5,7 +5,7 @@ namespace Ekyna\Bundle\PaymentBundle\Form\Type;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class MethodChoiceType
@@ -33,7 +33,7 @@ class MethodChoiceType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $queryBuilder = function (Options $options) {
             if (!$options['disabled']) {
@@ -47,12 +47,12 @@ class MethodChoiceType extends AbstractType
             }
         };
         $resolver
-            ->setDefaults(array(
+            ->setDefaults([
                 'label' => false,
                 'expanded' => true,
                 'class' => $this->dataClass,
                 'query_builder' => $queryBuilder,
-            ))
+            ])
         ;
     }
 

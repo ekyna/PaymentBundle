@@ -45,14 +45,14 @@ class PaymentType extends AbstractType
             $disabled = (null !== $payment && $payment->getState() !== PaymentStates::STATE_NEW);
             $currency = null !== $payment ? $payment->getCurrency() : 'EUR';
 
-            $form->add('amount', 'money', array(
+            $form->add('amount', 'money', [
                 'label' => 'ekyna_payment.payment.field.amount',
                 'currency' => $currency,
                 'disabled' => $disabled || !$options['admin_mode'],
-            ));
+            ]);
 
             if ($options['admin_mode']) {
-                $form->add('method', 'entity', array(
+                $form->add('method', 'entity', [
                     'label'    => 'ekyna_payment.payment.field.method',
                     'class'    => $this->methodClass,
                     'property' => 'paymentName',
@@ -62,17 +62,17 @@ class PaymentType extends AbstractType
                             ->createQueryBuilder('m')
                             ->andWhere('m.enabled = :enabled')
                             ->andWhere('m.factoryName = :factoryName')
-                            ->setParameters(array(
+                            ->setParameters([
                                 'enabled' => true,
                                 'factoryName' => 'offline',
-                            ))
+                            ])
                         ;
                     }
-                ));
+                ]);
             } else {
-                $form->add('method', 'ekyna_payment_method_choice', array(
+                $form->add('method', 'ekyna_payment_method_choice', [
                     'label'    => 'ekyna_payment.payment.field.method',
-                ));
+                ]);
             }
         });
     }

@@ -65,10 +65,10 @@ class MethodController extends ResourceController
 
         return $this->render(
             $this->config->getTemplate('new.html'),
-            $context->getTemplateVars(array(
+            $context->getTemplateVars([
                 'flow' => $flow,
                 'form' => $form->createView()
-            ))
+            ])
         );
     }
 }

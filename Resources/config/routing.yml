@@ -15,13 +15,13 @@ ekyna_payment_admin:
     prefix:   /admin/setting
 
 ekyna_payment_notify:
-    pattern: /api/payment/notify/{payum_token}
+    path: /api/payment/notify/{payum_token}
     defaults:
         _controller: EkynaPaymentBundle:Payment:notify
     options: { i18n: false }
 
 ekyna_payment_done:
-    pattern: /api/payment/done
+    path: /api/payment/done
     defaults:
         _controller: EkynaPaymentBundle:Payment:done
     options: { i18n: false }

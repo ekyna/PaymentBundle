@@ -42,8 +42,8 @@ class EkynaPaymentExtension extends AbstractExtension
      */
     protected function configureTwigBundle(ContainerBuilder $container)
     {
-        $container->prependExtensionConfig('twig', array(
-            'form' => array('resources' => array('EkynaPaymentBundle:Form:form_div_layout.html.twig')),
-        ));
+        $container->prependExtensionConfig('twig', [
+            'form' => ['resources' => ['EkynaPaymentBundle:Form:form_div_layout.html.twig']],
+        ]);
     }
 }

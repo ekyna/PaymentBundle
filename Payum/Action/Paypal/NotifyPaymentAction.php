@@ -2,15 +2,12 @@
 
 namespace Ekyna\Bundle\PaymentBundle\Payum\Action\Paypal;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Ekyna\Bundle\PaymentBundle\Payum\Action\AbstractPaymentStateAwareAction;
 use Ekyna\Bundle\PaymentBundle\Payum\Request\GetStatus;
 use Ekyna\Component\Sale\Payment\PaymentInterface;
 use Payum\Core\Exception\RequestNotSupportedException;
-use Payum\Core\Request\GetStatusInterface;
 use Payum\Core\Request\Notify;
 use Payum\Core\Request\Sync;
-use SM\Factory\FactoryInterface;
 
 /**
  * Class NotifyPaymentAction

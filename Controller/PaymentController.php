@@ -43,9 +43,9 @@ class PaymentController extends Controller
             }
         }
 
-        return $this->render('EkynaPaymentBundle:Payment:prepare.html.twig', array(
+        return $this->render('EkynaPaymentBundle:Payment:prepare.html.twig', [
             'form' => $form->createView(),
-        ));
+        ]);
     }
 
     /**
@@ -101,9 +101,9 @@ class PaymentController extends Controller
         }
 
         if ($debug) {
-            return $this->render('EkynaPaymentBundle:Payment:done.html.twig', array(
+            return $this->render('EkynaPaymentBundle:Payment:done.html.twig', [
                 'payment' => $payment,
-            ));
+            ]);
         }
 
         return $this->redirect('/');

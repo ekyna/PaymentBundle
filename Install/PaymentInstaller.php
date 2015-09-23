@@ -60,10 +60,10 @@ class PaymentInstaller implements OrderedInstallerInterface, ContainerAwareInter
 
         $name = 'Payment method';
 
-        $paymentFolder = $folderRepository->findOneBy(array(
+        $paymentFolder = $folderRepository->findOneBy([
             'name' => $name,
             'parent' => $rootFolder,
-        ));
+        ]);
         if (null !== $paymentFolder) {
             return $paymentFolder;
         }
@@ -96,26 +96,26 @@ class PaymentInstaller implements OrderedInstallerInterface, ContainerAwareInter
         $folder = $this->createImageFolder();
         $imageDir = realpath(__DIR__.'/../Resources/asset/img');
 
-        $methods = array(
-            'Chèque'   => array(
+        $methods = [
+            'Chèque'   => [
                 'offline',
                 'cheque.png',
                 '<p>Veuillez adresser votre chèque à l\'ordre de ...</p>',
                 true
-            ),
-            'Virement' => array(
+            ],
+            'Virement' => [
                 'offline',
                 'virement.png',
                 '<p>Veuillez adresser votre virement à l\'ordre de ...</p>',
                 true
-            ),
-            'Paypal'   => array(
+            ],
+            'Paypal'   => [
                 'paypal_express_checkout_nvp',
                 'paypal.png',
                 '<p>Réglez avec votre compte paypal, ou votre carte bancaire.</p>',
                 false
-            ),
-        );
+            ],
+        ];
 
         foreach ($methods as $name => $options) {
             $output->write(sprintf(
@@ -126,7 +126,7 @@ class PaymentInstaller implements OrderedInstallerInterface, ContainerAwareInter
 
             // TODO check that factory method exists
 
-            if (null !== $method = $methodRepository->findOneBy(array('paymentName' => $name))) {
+            if (null !== $method = $methodRepository->findOneBy(['paymentName' => $name])) {
                 $output->writeln('already exists.');
                 continue;
             }

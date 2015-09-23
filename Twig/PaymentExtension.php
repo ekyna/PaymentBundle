@@ -55,9 +55,9 @@ class PaymentExtension extends \Twig_Extension
      */
     public function getGlobals()
     {
-        return array(
+        return [
             'payment_states' => PaymentStates::getConstants(),
-        );
+        ];
     }
 
     /**
@@ -65,11 +65,11 @@ class PaymentExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
-            new \Twig_SimpleFunction('get_payment_state',  array($this, 'getPaymentState'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('render_payment_state',  array($this, 'renderPaymentState'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('render_payment_actions',  array($this, 'renderPaymentActions'), array('is_safe' => array('html'))),
-        );
+        return [
+            new \Twig_SimpleFunction('get_payment_state',  [$this, 'getPaymentState'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('render_payment_state',  [$this, 'renderPaymentState'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('render_payment_actions',  [$this, 'renderPaymentActions'], ['is_safe' => ['html']]),
+        ];
     }
 
     /**
@@ -122,7 +122,7 @@ class PaymentExtension extends \Twig_Extension
             if ($sm->can($transition)) {
                 $label = $this->translator->trans(PaymentTransitions::getLabel($transition));
                 $path = $this->urlGenerator->generate($route, array_merge(
-                    $routeParameters, array('transition' => $transition)
+                    $routeParameters, ['transition' => $transition]
                 ));
                 $theme = PaymentTransitions::getTheme($transition);
                 $buttons[] = sprintf($model, $path, $theme, strtolower($label), $label);

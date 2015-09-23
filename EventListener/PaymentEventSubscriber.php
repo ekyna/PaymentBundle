@@ -66,8 +66,8 @@ class PaymentEventSubscriber implements EventSubscriberInterface
      */
     static public function getSubscribedEvents()
     {
-        return array(
-            PaymentEvents::PREPARE => array('onPaymentPrepare', -1024),
-        );
+        return [
+            PaymentEvents::PREPARE => ['onPaymentPrepare', -1024],
+        ];
     }
 }

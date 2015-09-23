@@ -16,16 +16,16 @@ class MethodCreateFlow extends FormFlow
      */
     protected function loadStepsConfig()
     {
-        return array(
-            array(
+        return [
+            [
                 'label' => 'factory',
                 'type'  => 'ekyna_payment_method_create_factory',
-            ),
-            array(
+            ],
+            [
                 'label' => 'config',
                 'type'  => 'ekyna_payment_method',
-            ),
-        );
+            ],
+        ];
     }
 
     /**

@@ -19,17 +19,17 @@ final class PaymentStates extends AbstractConstants
     {
         $prefix = 'ekyna_payment.payment.state.';
         $suffix = '.label';
-        return array(
-            States::STATE_NEW        => array($prefix.States::STATE_NEW.$suffix,        'primary', false),
-            States::STATE_PENDING    => array($prefix.States::STATE_PENDING.$suffix,    'warning', false),
-            States::STATE_PROCESSING => array($prefix.States::STATE_PROCESSING.$suffix, 'warning', true),
-            States::STATE_CANCELLED  => array($prefix.States::STATE_CANCELLED.$suffix,  'default', false),
-            States::STATE_FAILED     => array($prefix.States::STATE_FAILED.$suffix,     'danger',  true),
-            States::STATE_AUTHORIZED => array($prefix.States::STATE_AUTHORIZED.$suffix, 'success', true),
-            States::STATE_COMPLETED  => array($prefix.States::STATE_COMPLETED.$suffix,  'success', true),
-            States::STATE_REFUNDED   => array($prefix.States::STATE_REFUNDED.$suffix,   'primary', true),
-            States::STATE_UNKNOWN    => array($prefix.States::STATE_UNKNOWN.$suffix,    'default', false),
-        );
+        return [
+            States::STATE_NEW        => [$prefix.States::STATE_NEW.$suffix,        'primary', false],
+            States::STATE_PENDING    => [$prefix.States::STATE_PENDING.$suffix,    'warning', false],
+            States::STATE_PROCESSING => [$prefix.States::STATE_PROCESSING.$suffix, 'warning', true],
+            States::STATE_CANCELLED  => [$prefix.States::STATE_CANCELLED.$suffix,  'default', false],
+            States::STATE_FAILED     => [$prefix.States::STATE_FAILED.$suffix,     'danger',  true],
+            States::STATE_AUTHORIZED => [$prefix.States::STATE_AUTHORIZED.$suffix, 'success', true],
+            States::STATE_COMPLETED  => [$prefix.States::STATE_COMPLETED.$suffix,  'success', true],
+            States::STATE_REFUNDED   => [$prefix.States::STATE_REFUNDED.$suffix,   'primary', true],
+            States::STATE_UNKNOWN    => [$prefix.States::STATE_UNKNOWN.$suffix,    'default', false],
+        ];
     }
 
     /**

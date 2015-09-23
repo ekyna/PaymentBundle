@@ -57,9 +57,9 @@ class BuildConfigSubscriber implements EventSubscriberInterface
         }
 
         $form = $event->getForm();
-        $form->add('config', 'form', array(
+        $form->add('config', 'form', [
             'label' => 'ekyna_core.field.config',
-        ));
+        ]);
         $configForm = $form->get('config');
 
         $propertyPath = is_array($data) ? '[config]' : 'config';
@@ -72,7 +72,7 @@ class BuildConfigSubscriber implements EventSubscriberInterface
 
             $type = is_bool($value) ? 'checkbox' : 'text';
 
-            $options = array();
+            $options = [];
             $options['required'] = in_array($name, $config['payum.required_options']);
 
             $configForm->add($name, $type, $options);
@@ -86,9 +86,9 @@ class BuildConfigSubscriber implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             FormEvents::PRE_SET_DATA => 'buildConfigField',
             FormEvents::PRE_SUBMIT   => 'buildConfigField',
-        );
+        ];
     }
 }

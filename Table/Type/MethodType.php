@@ -18,43 +18,43 @@ class MethodType extends ResourceTableType
     public function buildTable(TableBuilderInterface $builder, array $options)
     {
         $builder
-            ->addColumn('paymentName', 'anchor', array(
+            ->addColumn('paymentName', 'anchor', [
                 'label' => 'ekyna_core.field.name',
                 'sortable' => true,
                 'route_name' => 'ekyna_payment_method_admin_show',
-                'route_parameters_map' => array(
+                'route_parameters_map' => [
                     'methodId' => 'id'
-                ),
-            ))
-            ->addColumn('enabled', 'boolean', array(
+                ],
+            ])
+            ->addColumn('enabled', 'boolean', [
                 'label' => 'ekyna_core.field.enabled',
                 'sortable' => true,
                 'route_name' => 'ekyna_payment_method_admin_toggle',
-                'route_parameters' => array('field' => 'enabled'),
-                'route_parameters_map' => array('methodId' => 'id'),
-            ))
-            ->addColumn('actions', 'admin_actions', array(
-                'buttons' => array(
-                    array(
+                'route_parameters' => ['field' => 'enabled'],
+                'route_parameters_map' => ['methodId' => 'id'],
+            ])
+            ->addColumn('actions', 'admin_actions', [
+                'buttons' => [
+                    [
                         'label' => 'ekyna_core.button.edit',
                         'class' => 'warning',
                         'route_name' => 'ekyna_payment_method_admin_edit',
-                        'route_parameters_map' => array(
+                        'route_parameters_map' => [
                             'methodId' => 'id'
-                        ),
+                        ],
                         'permission' => 'edit',
-                    ),
-                    array(
+                    ],
+                    [
                         'label' => 'ekyna_core.button.remove',
                         'class' => 'danger',
                         'route_name' => 'ekyna_payment_method_admin_remove',
-                        'route_parameters_map' => array(
+                        'route_parameters_map' => [
                             'methodId' => 'id'
-                        ),
+                        ],
                         'permission' => 'delete',
-                    ),
-                ),
-            ))
+                    ],
+                ],
+            ])
             /*->addFilter('name', 'text', array(
                 'label' => 'ekyna_core.field.name',
             ))

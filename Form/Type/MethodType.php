@@ -39,28 +39,28 @@ class MethodType extends ResourceFormType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('paymentName', 'text', array(
+            ->add('paymentName', 'text', [
                 'label' => 'ekyna_core.field.name',
-            ))
-            ->add('factoryName', 'payum_payment_factories_choice', array(
+            ])
+            ->add('factoryName', 'payum_payment_factories_choice', [
                 'label' => 'ekyna_payment.method.field.factory_name',
                 'disabled' => true,
-            ))
-            ->add('media', 'ekyna_media_choice', array(
+            ])
+            ->add('media', 'ekyna_media_choice', [
                 'label' => 'ekyna_core.field.image',
                 'types' => MediaTypes::IMAGE,
-            ))
-            ->add('description', 'tinymce', array(
+            ])
+            ->add('description', 'tinymce', [
                 'label' => 'ekyna_core.field.description',
-            ))
+            ])
             ->add('messages', 'ekyna_payment_messages')
-            ->add('enabled', 'checkbox', array(
+            ->add('enabled', 'checkbox', [
                 'label' => 'ekyna_core.field.enabled',
                 'required' => false,
-                'attr' => array(
+                'attr' => [
                     'align_with_widget' => true,
-                ),
-            ))
+                ],
+            ])
         ;
 
         $builder->addEventSubscriber(new BuildConfigSubscriber($this->registry));

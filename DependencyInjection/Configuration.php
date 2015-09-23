@@ -41,11 +41,11 @@ class Configuration implements ConfigurationInterface
                         ->arrayNode('method')
                             ->addDefaultsIfNotSet()
                             ->children()
-                                ->variableNode('templates')->defaultValue(array(
+                                ->variableNode('templates')->defaultValue([
                                     '_form.html' => 'EkynaPaymentBundle:Admin/Method:_form.html',
                                     'show.html'  => 'EkynaPaymentBundle:Admin/Method:show.html',
                                     'new.html'   => 'EkynaPaymentBundle:Admin/Method:new.html',
-                                ))->end()
+                                ])->end()
                                 ->scalarNode('parent')->end()
                                 ->scalarNode('entity')->defaultValue('Ekyna\Bundle\PaymentBundle\Entity\Method')->end()
                                 ->scalarNode('controller')->defaultValue('Ekyna\Bundle\PaymentBundle\Controller\Admin\MethodController')->end()
