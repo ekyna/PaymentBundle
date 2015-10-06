@@ -9,7 +9,7 @@
     {{ form_errors(form) }}
     <div class="tab-content">
         <div class="tab-pane active" id="payment-method-general">
-            {{ form_row(form.paymentName) }}
+            {{ form_row(form.gatewayName) }}
             {{ form_row(form.factoryName) }}
             {% if form.config is defined %}
             {{ form_row(form.config) }}

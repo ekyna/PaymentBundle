@@ -28,7 +28,7 @@
                 {% if flow.getCurrentStepNumber() == 1 %}
                     {{ form_row(form.factoryName) }}
                 {% else %}
-                    {{ form_row(form.paymentName) }}
+                    {{ form_row(form.gatewayName) }}
                     {{ form_row(form.factoryName) }}
                     {% if form.config is defined %}
                     {{ form_row(form.config) }}

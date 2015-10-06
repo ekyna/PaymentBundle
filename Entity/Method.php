@@ -3,10 +3,10 @@
 namespace Ekyna\Bundle\PaymentBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ekyna\Bundle\MediaBundle\Model\MediaSubjectTrait;
 use Ekyna\Bundle\CoreBundle\Model\TimestampableTrait;
-use Ekyna\Component\Sale\Payment\MethodInterface;
-use Payum\Core\Model\PaymentConfig as BasePaymentConfig;
+use Ekyna\Bundle\MediaBundle\Model\MediaSubjectTrait;
+use Ekyna\Bundle\PaymentBundle\Model\MethodInterface;
+use Payum\Core\Model\GatewayConfig as BasePaymentConfig;
 
 /**
  * Class Method
@@ -15,8 +15,8 @@ use Payum\Core\Model\PaymentConfig as BasePaymentConfig;
  */
 class Method extends BasePaymentConfig implements MethodInterface
 {
-    use MediaSubjectTrait,
-        TimestampableTrait;
+    use TimestampableTrait,
+        MediaSubjectTrait;
 
     /**
      * @var integer
@@ -56,7 +56,7 @@ class Method extends BasePaymentConfig implements MethodInterface
      */
     public function __toString()
     {
-        return $this->getPaymentName();
+        return $this->getGatewayName();
     }
 
     /**
@@ -87,18 +87,18 @@ class Method extends BasePaymentConfig implements MethodInterface
     /**
      * {@inheritDoc}
      */
-    public function setPaymentName($paymentName)
+    public function setGatewayName($gatewayName)
     {
-        $this->paymentName = $paymentName;
+        $this->gatewayName = $gatewayName;
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getPaymentName()
+    public function getGatewayName()
     {
-        return $this->paymentName;
+        return $this->gatewayName;
     }
 
     /**

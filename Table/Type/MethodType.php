@@ -18,7 +18,7 @@ class MethodType extends ResourceTableType
     public function buildTable(TableBuilderInterface $builder, array $options)
     {
         $builder
-            ->addColumn('paymentName', 'anchor', array(
+            ->addColumn('gatewayName', 'anchor', array(
                 'label' => 'ekyna_core.field.name',
                 'sortable' => true,
                 'route_name' => 'ekyna_payment_method_admin_show',

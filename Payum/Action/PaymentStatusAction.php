@@ -2,9 +2,8 @@
 
 namespace Ekyna\Bundle\PaymentBundle\Payum\Action;
 
-//use Ekyna\Bundle\PaymentBundle\Payum\Request\GetStatus;
 use Ekyna\Component\Sale\Payment\PaymentInterface;
-use Payum\Core\Action\PaymentAwareAction;
+use Payum\Core\Action\GatewayAwareAction;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Request\GetStatusInterface;
 
@@ -13,7 +12,7 @@ use Payum\Core\Request\GetStatusInterface;
  * @package Ekyna\Bundle\PaymentBundle\Payum\Action
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class PaymentStatusAction extends PaymentAwareAction
+class PaymentStatusAction extends GatewayAwareAction
 {
     /**
      * {@inheritDoc}
@@ -28,7 +27,7 @@ class PaymentStatusAction extends PaymentAwareAction
         if ($payment->getDetails()) {
             $request->setModel($payment->getDetails());
 
-            $this->payment->execute($request);
+            $this->gateway->execute($request);
 
             $request->setModel($payment);
         } else {

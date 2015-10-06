@@ -152,7 +152,7 @@ class PaymentInstaller implements OrderedInstallerInterface, ContainerAwareInter
             /** @var \Ekyna\Bundle\PaymentBundle\Entity\Method $method */
             $method = $methodRepository->createNew();
             $method
-                ->setPaymentName($name)
+                ->setGatewayName($name)
                 ->setFactoryName($options[0])
                 ->setMedia($image)
                 ->setDescription($options[2])

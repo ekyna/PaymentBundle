@@ -23,7 +23,7 @@
 	<div class="show-body">
 	    <div class="tab-content">
 		    <div class="tab-pane active" id="payment-method-general">
-                {{ show_row(method.paymentName, 'text', 'ekyna_core.field.name') }}
+                {{ show_row(method.gatewayName, 'text', 'ekyna_core.field.name') }}
                 {{ show_row(method.factoryName, 'text', 'ekyna_payment.method.field.factory_name') }}
                 {% if method.config is not empty %}
                 <div class="row show-row">

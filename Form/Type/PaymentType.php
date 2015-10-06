@@ -46,7 +46,7 @@ class PaymentType extends AbstractType
             $currency = null !== $payment ? $payment->getCurrency() : 'EUR';
 
             $form->add('amount', 'money', array(
-                'label' => 'ekyna_payment.payment.field.amount',
+                'label'    => 'ekyna_payment.payment.field.amount',
                 'currency' => $currency,
                 'disabled' => $disabled || !$options['admin_mode'],
             ));
@@ -55,7 +55,7 @@ class PaymentType extends AbstractType
                 $form->add('method', 'entity', array(
                     'label'    => 'ekyna_payment.payment.field.method',
                     'class'    => $this->methodClass,
-                    'property' => 'paymentName',
+                    'property' => 'gatewayName',
                     'disabled' => $disabled,
                     'query_builder' => function (EntityRepository $repository) {
                         return $repository
@@ -71,7 +71,7 @@ class PaymentType extends AbstractType
                 ));
             } else {
                 $form->add('method', 'ekyna_payment_method_choice', array(
-                    'label'    => 'ekyna_payment.payment.field.method',
+                    'label' => 'ekyna_payment.payment.field.method',
                 ));
             }
         });

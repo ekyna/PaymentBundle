@@ -3,7 +3,7 @@
 namespace Ekyna\Bundle\PaymentBundle\Payum\Action;
 
 use Ekyna\Component\Sale\Payment\PaymentInterface;
-use Payum\Core\Action\PaymentAwareAction;
+use Payum\Core\Action\GatewayAwareAction;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Request\Generic;
@@ -13,7 +13,7 @@ use Payum\Core\Request\Generic;
  * @package Ekyna\Bundle\PaymentBundle\Payum\Action
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class ExecuteSameRequestWithPaymentDetailsAction extends PaymentAwareAction
+class ExecuteSameRequestWithPaymentDetailsAction extends GatewayAwareAction
 {
     /**
      * {@inheritDoc}
@@ -31,7 +31,7 @@ class ExecuteSameRequestWithPaymentDetailsAction extends PaymentAwareAction
         try {
             $request->setModel($details);
 
-            $this->payment->execute($request);
+            $this->gateway->execute($request);
 
             $payment->setDetails((array) $details);
         } catch (\Exception $e) {

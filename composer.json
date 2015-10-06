@@ -22,8 +22,8 @@
         "symfony/framework-bundle" : "~2.3",
         "ekyna/cms-bundle" : "0.3.x-dev",
         "ekyna/sale" : "0.3.x-dev",
-        "payum/payum": "0.14.*",
-        "payum/payum-bundle": "0.14.*",
+        "payum/payum": "0.15.*",
+        "payum/payum-bundle": "0.15.*",
         "winzou/state-machine-bundle": "~0.2",
         "craue/formflow-bundle": "~2.1"
     },

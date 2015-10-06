@@ -27,10 +27,10 @@ class DonePaymentAction extends AbstractPaymentStateAwareAction
         /** @var $payment PaymentInterface */
         $payment = $request->getModel();
 
-        $this->payment->execute(new Sync($payment));
+        $this->gateway->execute(new Sync($payment));
 
         $status = new GetStatus($payment);
-        $this->payment->execute($status);
+        $this->gateway->execute($status);
 
         $nextState = $status->getValue();
 
