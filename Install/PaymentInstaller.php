@@ -126,7 +126,7 @@ class PaymentInstaller implements OrderedInstallerInterface, ContainerAwareInter
 
             // TODO check that factory method exists
 
-            if (null !== $method = $methodRepository->findOneBy(array('paymentName' => $name))) {
+            if (null !== $method = $methodRepository->findOneBy(array('gatewayName' => $name))) {
                 $output->writeln('already exists.');
                 continue;
             }

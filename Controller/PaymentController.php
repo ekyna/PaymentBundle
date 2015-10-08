@@ -58,7 +58,7 @@ class PaymentController extends Controller
     {
         $token = $this->getHttpRequestVerifier()->verify($request);
 
-        $gateway = $this->getPayum()->getGateway($token->getPaymentName());
+        $gateway = $this->getPayum()->getGateway($token->getGatewayName());
 
         $gateway->execute($notify = new Notify($token));
 
@@ -83,7 +83,7 @@ class PaymentController extends Controller
 
         $token = $this->getHttpRequestVerifier()->verify($request);
 
-        $gateway = $this->getPayum()->getGateway($token->getPaymentName());
+        $gateway = $this->getPayum()->getGateway($token->getGatewayName());
 
         $gateway->execute($done = new Done($token));
 
