@@ -117,6 +117,15 @@ class PaymentInstaller implements OrderedInstallerInterface, ContainerAwareInter
             ),
         );
 
+        if (class_exists('Ekyna\Bundle\PayumSipsBundle\EkynaPayumSipsBundle')) {
+            $methods['Carte bancaire'] = array(
+                'atos_sips',
+                'credit-card.png',
+                '<p>Réglez avec votre carte bancaire.</p>',
+                false
+            );
+        }
+
         foreach ($methods as $name => $options) {
             $output->write(sprintf(
                 '- <comment>%s</comment> %s ',
