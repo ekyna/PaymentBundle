@@ -67,15 +67,17 @@
         <!-- ===================================== Payum actions ===================================== -->
 
         <!-- Global -->
-        <service id="ekyna_payment.payum.action.payment_status"
-                 class="Ekyna\Bundle\PaymentBundle\Payum\Action\PaymentStatusAction">
-            <tag name="payum.action" all="true" />
+        <service id="ekyna_payment.payum.action.notify_payment"
+                 class="Ekyna\Bundle\PaymentBundle\Payum\Action\NotifyPaymentAction">
+            <argument type="service" id="sm.factory" />
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
+            <tag name="payum.action" all="true" prepend="true" />
         </service>
         <service id="ekyna_payment.payum.action.done_payment"
                  class="Ekyna\Bundle\PaymentBundle\Payum\Action\DonePaymentAction">
             <argument type="service" id="sm.factory" />
             <argument type="service" id="doctrine.orm.default_entity_manager" />
-            <tag name="payum.action" all="true" />
+            <tag name="payum.action" all="true" prepend="true" />
         </service>
 
         <!-- Offline -->
@@ -86,24 +88,6 @@
         <service id="ekyna_payment.payum.action.offline.sync_payment"
                  class="Ekyna\Bundle\PaymentBundle\Payum\Action\Offline\SyncPaymentAction">
             <tag name="payum.action" factory="offline" />
-        </service>
-
-        <!-- PayPal -->
-        <service id="ekyna_payment.payum.action.paypal.capture_test_payment_using_express_checkout"
-                 class="Ekyna\Bundle\PaymentBundle\Payum\Action\Paypal\CaptureTestPaymentUsingExpressCheckoutAction">
-            <tag name="payum.action" factory="paypal_express_checkout_nvp" />
-        </service>
-        <service id="ekyna_payment.payum.action.paypal.notify_payment"
-                 class="Ekyna\Bundle\PaymentBundle\Payum\Action\Paypal\NotifyPaymentAction">
-            <argument type="service" id="sm.factory" />
-            <argument type="service" id="doctrine.orm.default_entity_manager" />
-            <tag name="payum.action" factory="paypal_express_checkout_nvp" />
-        </service>
-
-        <!-- Sub requests -->
-        <service id="ekyna_payment.payum.action.execute_same_request_with_payment_details"
-                 class="Ekyna\Bundle\PaymentBundle\Payum\Action\ExecuteSameRequestWithPaymentDetailsAction">
-            <tag name="payum.action" all="true" />
         </service>
 
     </services>

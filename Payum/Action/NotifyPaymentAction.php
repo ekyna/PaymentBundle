@@ -1,6 +1,6 @@
 <?php
 
-namespace Ekyna\Bundle\PaymentBundle\Payum\Action\Paypal;
+namespace Ekyna\Bundle\PaymentBundle\Payum\Action;
 
 use Ekyna\Bundle\PaymentBundle\Payum\Action\AbstractPaymentStateAwareAction;
 use Ekyna\Bundle\PaymentBundle\Payum\Request\GetStatus;
@@ -11,7 +11,7 @@ use Payum\Core\Request\Sync;
 
 /**
  * Class NotifyPaymentAction
- * @package Ekyna\Bundle\PaymentBundle\Payum\Action\Paypal
+ * @package Ekyna\Bundle\PaymentBundle\Payum\Action
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class NotifyPaymentAction extends AbstractPaymentStateAwareAction

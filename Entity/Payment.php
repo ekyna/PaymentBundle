@@ -6,7 +6,6 @@ use Ekyna\Bundle\PaymentBundle\Model\PaymentInterface;
 use Ekyna\Component\Sale\Payment\MethodInterface;
 use Ekyna\Component\Sale\Payment\PaymentStates;
 use Payum\Core\Model\ArrayObject;
-use Payum\ISO4217\ISO4217;
 
 /**
  * Class Payment
@@ -197,7 +196,7 @@ abstract class Payment extends ArrayObject implements PaymentInterface
      */
     public function getTotalAmount()
     {
-        return $this->getAmount();
+        return $this->getAmount() * 100; // As expected by Payum
     }
 
     /**
