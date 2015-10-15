@@ -2,17 +2,18 @@
 
 namespace Ekyna\Bundle\PaymentBundle\Payum\Action\Offline;
 
-use Ekyna\Component\Sale\Payment\PaymentInterface;
 use Payum\Core\Action\GatewayAwareAction;
+use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Request\Sync;
+use Payum\Offline\Constants;
 
 /**
- * Class SyncPaymentAction
+ * Class SyncAction
  * @package Ekyna\Bundle\PaymentBundle\Payum\Action\Offline
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class SyncPaymentAction extends GatewayAwareAction
+class SyncAction extends GatewayAwareAction
 {
     /**
      * {@inheritDoc}
@@ -22,6 +23,14 @@ class SyncPaymentAction extends GatewayAwareAction
     public function execute($request)
     {
         RequestNotSupportedException::assertSupports($this, $request);
+
+        $model = ArrayObject::ensureArrayObject($request->getModel());
+
+        if (true == $model[Constants::FIELD_PAID]) {
+            $model[Constants::FIELD_STATUS] = Constants::STATUS_CAPTURED;
+        } else {
+            $model[Constants::FIELD_STATUS] = Constants::STATUS_PENDING;
+        }
 
         return;
     }
@@ -33,7 +42,7 @@ class SyncPaymentAction extends GatewayAwareAction
     {
         return
             $request instanceof Sync &&
-            $request->getModel() instanceof PaymentInterface
+            $request->getModel() instanceof \ArrayAccess
         ;
     }
 }

@@ -81,13 +81,13 @@
         </service>
 
         <!-- Offline -->
-        <service id="ekyna_payment.payum.action.offline.capture_payment"
-                 class="Ekyna\Bundle\PaymentBundle\Payum\Action\Offline\CapturePaymentAction">
-            <tag name="payum.action" factory="offline" />
+        <service id="ekyna_payment.payum.action.offline.capture"
+                 class="Ekyna\Bundle\PaymentBundle\Payum\Action\Offline\CaptureAction">
+            <tag name="payum.action" factory="offline" prepend="true" />
         </service>
-        <service id="ekyna_payment.payum.action.offline.sync_payment"
-                 class="Ekyna\Bundle\PaymentBundle\Payum\Action\Offline\SyncPaymentAction">
-            <tag name="payum.action" factory="offline" />
+        <service id="ekyna_payment.payum.action.offline.sync"
+                 class="Ekyna\Bundle\PaymentBundle\Payum\Action\Offline\SyncAction">
+            <tag name="payum.action" factory="offline" prepend="true" />
         </service>
 
     </services>
