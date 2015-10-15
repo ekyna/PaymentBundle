@@ -34,9 +34,6 @@
         <service id="ekyna_payment.messages.form_type" class="Ekyna\Bundle\PaymentBundle\Form\Type\MessagesType">
             <tag name="form.type" alias="ekyna_payment_messages" />
         </service>
-        <service id="ekyna_payment.test_payment.form_type" class="Ekyna\Bundle\PaymentBundle\Form\Type\TestPaymentType">
-            <tag name="form.type" alias="ekyna_payment_test_payment" />
-        </service>
 
         <!-- Form flow -->
         <service id="ekyna_payment.method_create.form_flow"

@@ -1,6 +1,0 @@
-ekyna_payment_prepare:
-    pattern: /prepare
-    defaults:
-        _controller: EkynaPaymentBundle:Payment:prepare
-    requirements:
-        _method: GET|POST

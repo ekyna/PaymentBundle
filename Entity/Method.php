@@ -3,9 +3,10 @@
 namespace Ekyna\Bundle\PaymentBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ekyna\Bundle\CoreBundle\Model\TimestampableTrait;
+use Ekyna\Bundle\CoreBundle\Model as Core;
 use Ekyna\Bundle\MediaBundle\Model\MediaSubjectTrait;
 use Ekyna\Bundle\PaymentBundle\Model\MethodInterface;
+use Ekyna\Bundle\PaymentBundle\Model\PaymentStates;
 use Payum\Core\Model\GatewayConfig as BasePaymentConfig;
 
 /**
@@ -15,7 +16,8 @@ use Payum\Core\Model\GatewayConfig as BasePaymentConfig;
  */
 class Method extends BasePaymentConfig implements MethodInterface
 {
-    use TimestampableTrait,
+    use Core\TimestampableTrait,
+        Core\SortableTrait,
         MediaSubjectTrait;
 
     /**
@@ -29,7 +31,7 @@ class Method extends BasePaymentConfig implements MethodInterface
     protected $description;
 
     /**
-     * @var ArrayCollection
+     * @var ArrayCollection|Message[]
      */
     protected $messages;
 
@@ -182,6 +184,22 @@ class Method extends BasePaymentConfig implements MethodInterface
     public function getMessages()
     {
         return $this->messages;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getMessageByState($state)
+    {
+        if (PaymentStates::isValid($state)) {
+            foreach ($this->messages as $message) {
+                if ($message->getState() === $state) {
+                    return $message;
+                }
+            }
+        }
+
+        return null;
     }
 
     /**

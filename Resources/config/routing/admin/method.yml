@@ -38,6 +38,20 @@ ekyna_payment_method_admin_tinymce:
         methodId: \d+
         field: "[a-zA-Z0-9]+"
 
+ekyna_payment_method_admin_move_up:
+    path: /{methodId}/moveup
+    defaults: { _controller: "ekyna_payment.method.controller:moveUpAction" }
+    requirements:
+        _method: GET
+        methodId: \d+
+
+ekyna_payment_method_admin_move_down:
+    path: /{methodId}/movedown
+    defaults: { _controller: "ekyna_payment.method.controller:moveDownAction" }
+    requirements:
+        _method: GET
+        methodId: \d+
+
 ekyna_payment_method_admin_toggle:
     path: /{methodId}/toggle/{field}
     defaults: { _controller: "ekyna_payment.method.controller:toggleAction", field: enabled }

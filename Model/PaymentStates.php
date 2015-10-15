@@ -21,13 +21,14 @@ final class PaymentStates extends AbstractConstants
         $suffix = '.label';
         return array(
             States::STATE_NEW        => array($prefix.States::STATE_NEW.$suffix,        'primary', false),
-            States::STATE_PENDING    => array($prefix.States::STATE_PENDING.$suffix,    'warning', false),
-            States::STATE_PROCESSING => array($prefix.States::STATE_PROCESSING.$suffix, 'warning', true),
+            States::STATE_PENDING    => array($prefix.States::STATE_PENDING.$suffix,    'warning', true),
+            States::STATE_CAPTURED   => array($prefix.States::STATE_CAPTURED.$suffix,   'success', true),
             States::STATE_CANCELLED  => array($prefix.States::STATE_CANCELLED.$suffix,  'default', false),
             States::STATE_FAILED     => array($prefix.States::STATE_FAILED.$suffix,     'danger',  true),
-            States::STATE_AUTHORIZED => array($prefix.States::STATE_AUTHORIZED.$suffix, 'success', true),
-            States::STATE_COMPLETED  => array($prefix.States::STATE_COMPLETED.$suffix,  'success', true),
             States::STATE_REFUNDED   => array($prefix.States::STATE_REFUNDED.$suffix,   'primary', true),
+            States::STATE_AUTHORIZED => array($prefix.States::STATE_AUTHORIZED.$suffix, 'success', false),
+            States::STATE_SUSPENDED  => array($prefix.States::STATE_SUSPENDED.$suffix,  'warning', false),
+            States::STATE_EXPIRED    => array($prefix.States::STATE_EXPIRED.$suffix,    'danger',  false),
             States::STATE_UNKNOWN    => array($prefix.States::STATE_UNKNOWN.$suffix,    'default', false),
         );
     }

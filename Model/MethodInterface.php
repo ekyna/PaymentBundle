@@ -3,7 +3,7 @@
 namespace Ekyna\Bundle\PaymentBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ekyna\Bundle\CoreBundle\Model\TimestampableInterface;
+use Ekyna\Bundle\CoreBundle\Model as Core;
 use Ekyna\Bundle\MediaBundle\Model\MediaSubjectInterface;
 use Ekyna\Bundle\PaymentBundle\Entity\Message;
 use Ekyna\Component\Sale\Payment\MethodInterface as BaseInterface;
@@ -13,7 +13,10 @@ use Ekyna\Component\Sale\Payment\MethodInterface as BaseInterface;
  * @package Ekyna\Bundle\PaymentBundle\Model
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-interface MethodInterface extends BaseInterface, TimestampableInterface, MediaSubjectInterface
+interface MethodInterface extends BaseInterface,
+    Core\TimestampableInterface,
+    Core\SortableInterface,
+    MediaSubjectInterface
 {
     /**
      * Returns the identifier.
@@ -75,6 +78,13 @@ interface MethodInterface extends BaseInterface, TimestampableInterface, MediaSu
      * @return ArrayCollection
      */
     public function getMessages();
+
+    /**
+     * Returns the message by state.
+     *
+     * @return Message|null
+     */
+    public function getMessageByState($state);
 
     /**
      * Sets the enabled.

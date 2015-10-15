@@ -52,12 +52,13 @@ class PaymentExtension extends \Twig_Extension
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
-    public function getGlobals()
+    public function getFilters()
     {
         return array(
-            'payment_states' => PaymentStates::getConstants(),
+            new \Twig_SimpleFilter('payment_state_label', array($this, 'getPaymentStateLabel'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFilter('payment_state_badge', array($this, 'getPaymentStateBadge'), array('is_safe' => array('html'))),
         );
     }
 
@@ -67,37 +68,38 @@ class PaymentExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('get_payment_state',  array($this, 'getPaymentState'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('render_payment_state',  array($this, 'renderPaymentState'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('render_payment_actions',  array($this, 'renderPaymentActions'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('render_method_config',  array($this, 'renderMethodConfig'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('render_payment_actions', array($this, 'renderPaymentActions'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('render_method_config',   array($this, 'renderMethodConfig'),   array('is_safe' => array('html'))),
         );
     }
 
     /**
-     * Renders the translated payment state.
-     *
-     * @param string $state
-     * @return string
-     */
-    public function getPaymentState($state)
-    {
-        return $this->translator->trans(PaymentStates::getLabel($state));
-    }
-
-    /**
-     * Renders the payment state label.
+     * Returns the payment state label.
      *
      * @param string|PaymentInterface $stateOrPayment
      * @return string
      */
-    public function renderPaymentState($stateOrPayment)
+    public function getPaymentStateLabel($stateOrPayment)
     {
         $state = $stateOrPayment instanceof PaymentInterface ? $stateOrPayment->getState() : $stateOrPayment;
+
+        return $this->translator->trans(PaymentStates::getLabel($state));
+    }
+
+    /**
+     * Returns the payment state badge.
+     *
+     * @param string|PaymentInterface $stateOrPayment
+     * @return string
+     */
+    public function getPaymentStateBadge($stateOrPayment)
+    {
+        $state = $stateOrPayment instanceof PaymentInterface ? $stateOrPayment->getState() : $stateOrPayment;
+
         return sprintf(
             '<span class="label label-%s">%s</span>',
             PaymentStates::getTheme($state),
-            $this->getPaymentState($state)
+            $this->getPaymentStateLabel($state)
         );
     }
 

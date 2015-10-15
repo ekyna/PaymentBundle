@@ -46,7 +46,7 @@
                     {% for message in method.messages %}
                     <li{% if loop.first %} class="active"{% endif %}>
                         <a href="#payment-method-state-{{ message.state }}" data-toggle="tab">
-                            {{ get_payment_state(message.state) }}
+                            {{ message.state|payment_state_label }}
                         </a>
                     </li>
                     {% endfor %}

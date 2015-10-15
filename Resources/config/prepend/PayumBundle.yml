@@ -2,8 +2,6 @@ payum:
     security:
         token_storage:
             Ekyna\Bundle\PaymentBundle\Entity\PayumSecurityToken: { doctrine: orm }
-    storages:
-        Ekyna\Bundle\PaymentBundle\Entity\TestPayment: { doctrine: orm }
     dynamic_gateways:
         sonata_admin: false
         config_storage:

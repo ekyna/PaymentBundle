@@ -33,7 +33,7 @@ class GetStatus extends BaseGetStatus
      */
     public function markPending()
     {
-        $this->status = PaymentStates::STATE_PROCESSING;
+        $this->status = PaymentStates::STATE_PENDING;
     }
 
     /**
@@ -41,7 +41,7 @@ class GetStatus extends BaseGetStatus
      */
     public function isPending()
     {
-        return $this->status === PaymentStates::STATE_PROCESSING;
+        return $this->status === PaymentStates::STATE_PENDING;
     }
 
     /**
@@ -49,7 +49,7 @@ class GetStatus extends BaseGetStatus
      */
     public function markSuspended()
     {
-        $this->status = PaymentStates::STATE_PROCESSING;
+        $this->status = PaymentStates::STATE_SUSPENDED;
     }
 
     /**
@@ -57,7 +57,7 @@ class GetStatus extends BaseGetStatus
      */
     public function isSuspended()
     {
-        return $this->status === PaymentStates::STATE_PROCESSING;
+        return $this->status === PaymentStates::STATE_SUSPENDED;
     }
 
     /**
@@ -65,7 +65,7 @@ class GetStatus extends BaseGetStatus
      */
     public function markExpired()
     {
-        $this->status = PaymentStates::STATE_FAILED;
+        $this->status = PaymentStates::STATE_EXPIRED;
     }
 
     /**
@@ -73,7 +73,7 @@ class GetStatus extends BaseGetStatus
      */
     public function isExpired()
     {
-        return $this->status === PaymentStates::STATE_FAILED;
+        return $this->status === PaymentStates::STATE_EXPIRED;
     }
 
     /**
@@ -111,25 +111,9 @@ class GetStatus extends BaseGetStatus
     /**
      * {@inheritdoc}
      */
-    public function markUnknown()
-    {
-        $this->status = PaymentStates::STATE_UNKNOWN;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isUnknown()
-    {
-        return $this->status === PaymentStates::STATE_UNKNOWN;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function markCaptured()
     {
-        $this->status = PaymentStates::STATE_COMPLETED;
+        $this->status = PaymentStates::STATE_CAPTURED;
     }
 
     /**
@@ -137,7 +121,7 @@ class GetStatus extends BaseGetStatus
      */
     public function isCaptured()
     {
-        return $this->status === PaymentStates::STATE_COMPLETED;
+        return $this->status === PaymentStates::STATE_CAPTURED;
     }
 
     /**
@@ -170,5 +154,21 @@ class GetStatus extends BaseGetStatus
     public function markRefunded()
     {
         $this->status = PaymentStates::STATE_REFUNDED;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function markUnknown()
+    {
+        $this->status = PaymentStates::STATE_UNKNOWN;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isUnknown()
+    {
+        return $this->status === PaymentStates::STATE_UNKNOWN;
     }
 }
