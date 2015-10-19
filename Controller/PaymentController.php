@@ -19,36 +19,6 @@ use Symfony\Component\HttpFoundation\Response;
 class PaymentController extends Controller
 {
     /**
-     * Prepare (test) action.
-     *
-     * @param Request $request
-     * @return Response
-     */
-    public function prepareAction(Request $request)
-    {
-        $payment = new TestPayment();
-        $payment
-            ->setCurrency('EUR')
-            ->setAmount(123)
-        ;
-
-        $form = $this->createForm('ekyna_payment_test_payment', $payment);
-
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $event = new PaymentEvent($payment);
-            $this->getDispatcher()->dispatch(PaymentEvents::PREPARE, $event);
-            if (null !== $response = $event->getResponse()) {
-                return $response;
-            }
-        }
-
-        return $this->render('EkynaPaymentBundle:Payment:prepare.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
      * Notify action.
      *
      * @param Request $request
@@ -58,7 +28,7 @@ class PaymentController extends Controller
     {
         $token = $this->getHttpRequestVerifier()->verify($request);
 
-        $gateway = $this->getPayum()->getPayment($token->getPaymentName());
+        $gateway = $this->getPayum()->getGateway($token->getGatewayName());
 
         $gateway->execute($notify = new Notify($token));
 
@@ -83,7 +53,7 @@ class PaymentController extends Controller
 
         $token = $this->getHttpRequestVerifier()->verify($request);
 
-        $gateway = $this->getPayum()->getPayment($token->getPaymentName());
+        $gateway = $this->getPayum()->getGateway($token->getGatewayName());
 
         $gateway->execute($done = new Done($token));
 

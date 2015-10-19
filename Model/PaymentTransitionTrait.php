@@ -2,7 +2,6 @@
 
 namespace Ekyna\Bundle\PaymentBundle\Model;
 
-use Ekyna\Component\Sale\Payment\PaymentInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**

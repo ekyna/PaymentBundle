@@ -39,10 +39,10 @@ class MethodType extends ResourceFormType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('paymentName', 'text', [
+            ->add('gatewayName', 'text', [
                 'label' => 'ekyna_core.field.name',
             ])
-            ->add('factoryName', 'payum_payment_factories_choice', [
+            ->add('factoryName', 'payum_gateway_factories_choice', [
                 'label' => 'ekyna_payment.method.field.factory_name',
                 'disabled' => true,
             ])

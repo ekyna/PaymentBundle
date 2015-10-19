@@ -55,7 +55,7 @@ class PaymentType extends AbstractType
                 $form->add('method', 'entity', [
                     'label'    => 'ekyna_payment.payment.field.method',
                     'class'    => $this->methodClass,
-                    'property' => 'paymentName',
+                    'property' => 'gatewayName',
                     'disabled' => $disabled,
                     'query_builder' => function (EntityRepository $repository) {
                         return $repository

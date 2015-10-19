@@ -4,7 +4,7 @@ namespace Ekyna\Bundle\PaymentBundle\Payum\Action;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Ekyna\Component\Sale\Payment\PaymentInterface;
-use Payum\Core\Action\PaymentAwareAction;
+use Payum\Core\Action\GatewayAwareAction;
 use SM\Factory\FactoryInterface;
 
 /**
@@ -12,7 +12,7 @@ use SM\Factory\FactoryInterface;
  * @package Ekyna\Bundle\PaymentBundle\Payum\Action
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-abstract class AbstractPaymentStateAwareAction extends PaymentAwareAction
+abstract class AbstractPaymentStateAwareAction extends GatewayAwareAction
 {
     /**
      * @var FactoryInterface

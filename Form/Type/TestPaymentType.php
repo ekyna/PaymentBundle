@@ -3,7 +3,7 @@
 namespace Ekyna\Bundle\PaymentBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Class TestPaymentType
@@ -15,12 +15,12 @@ class TestPaymentType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver
-            ->setDefaults([
+            ->setDefaults(array(
                 'class' => 'Ekyna\Bundle\PaymentBundle\Entity\TestPayment',
-            ])
+            ))
         ;
     }
 

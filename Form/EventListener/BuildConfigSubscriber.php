@@ -49,7 +49,7 @@ class BuildConfigSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $paymentFactory = $this->registry->getPaymentFactory($factoryName);
+        $paymentFactory = $this->registry->getGatewayFactory($factoryName);
         $config = $paymentFactory->createConfig();
 
         if (empty($config['payum.default_options'])) {
@@ -70,9 +70,17 @@ class BuildConfigSubscriber implements EventSubscriberInterface
                 PropertyAccess::createPropertyAccessor()->setValue($data, $propertyPath, $value);
             }
 
-            $type = is_bool($value) ? 'checkbox' : 'text';
+            $type = 'text';
+            $options = array();
+            if (is_bool($value)) {
+                $type = 'checkbox';
+                $options['attr'] = ['align_with_widget' => true];
+            } elseif(is_numeric($value)) {
+                $type = is_float($value) ? 'number' : 'integer';
+            } elseif (is_array($value)) {
+                continue;
+            }
 
-            $options = [];
             $options['required'] = in_array($name, $config['payum.required_options']);
 
             $configForm->add($name, $type, $options);

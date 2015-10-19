@@ -32,7 +32,7 @@
         <property name="factoryName">
             <constraint name="NotBlank" />
         </property>
-        <property name="paymentName">
+        <property name="gatewayName">
             <constraint name="NotBlank" />
         </property>
     </class>

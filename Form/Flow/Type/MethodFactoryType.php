@@ -35,7 +35,7 @@ class MethodFactoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('factoryName', 'payum_payment_factories_choice', [
+            ->add('factoryName', 'payum_gateway_factories_choice', [
                 'label' => 'ekyna_payment.method.field.factory_name',
             ])
         ;

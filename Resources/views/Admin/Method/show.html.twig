@@ -23,19 +23,14 @@
 	<div class="show-body">
 	    <div class="tab-content">
 		    <div class="tab-pane active" id="payment-method-general">
-                {{ show_row(method.paymentName, 'text', 'ekyna_core.field.name') }}
+                {{ show_row(method.gatewayName, 'text', 'ekyna_core.field.name') }}
                 {{ show_row(method.factoryName, 'text', 'ekyna_payment.method.field.factory_name') }}
                 {% if method.config is not empty %}
                 <div class="row show-row">
                     <div class="col-md-2 show-label">{{ 'ekyna_core.field.config'|trans }}</div>
                     <div class="col-md-10">
                         <div class="show-widget show-widget-block">
-                            <dl class="dl-horizontal">
-                            {% for key, value in method.config %}
-                                <dt>{{ key }}</dt>
-                                <dd>{{ value }}</dd>
-                            {% endfor %}
-                            </dl>
+                            {{ render_method_config(method) }}
                         </div>
                     </div>
                 </div>
@@ -51,7 +46,7 @@
                     {% for message in method.messages %}
                     <li{% if loop.first %} class="active"{% endif %}>
                         <a href="#payment-method-state-{{ message.state }}" data-toggle="tab">
-                            {{ get_payment_state(message.state) }}
+                            {{ message.state|payment_state_label }}
                         </a>
                     </li>
                     {% endfor %}
