@@ -35,7 +35,14 @@
                     </div>
                 </div>
                 {% endif %}
-                {{ show_row(method.enabled, 'checkbox', 'ekyna_core.field.enabled') }}
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ show_row(method.enabled, 'checkbox', 'ekyna_core.field.enabled', {'label_nb_col': 4}) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ show_row(method.available, 'checkbox', 'ekyna_payment.method.field.available', {'label_nb_col': 4}) }}
+                    </div>
+                </div>
 		    </div>
             <div class="tab-pane" id="payment-method-content">
                 {{ show_row(method.media, 'media', 'ekyna_core.field.image') }}
