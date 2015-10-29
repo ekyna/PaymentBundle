@@ -16,6 +16,7 @@
 
         <field name="description" column="description" type="text" />
         <field name="enabled" column="enabled" type="boolean" />
+        <field name="available" column="available" type="boolean" />
 
         <field name="position" type="integer" column="position">
             <gedmo:sortable-position />

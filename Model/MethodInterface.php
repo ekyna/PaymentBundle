@@ -100,4 +100,19 @@ interface MethodInterface extends BaseInterface,
      * @return boolean
      */
     public function getEnabled();
+
+    /**
+     * Sets the available.
+     *
+     * @param boolean $available
+     * @return MethodInterface|$this
+     */
+    public function setAvailable($available);
+
+    /**
+     * Returns the available.
+     *
+     * @return boolean
+     */
+    public function getAvailable();
 }

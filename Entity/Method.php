@@ -40,6 +40,11 @@ class Method extends BasePaymentConfig implements MethodInterface
      */
     protected $enabled = false;
 
+    /**
+     * @var bool
+     */
+    protected $available = false;
+
 
     /**
      * Constructor.
@@ -217,5 +222,22 @@ class Method extends BasePaymentConfig implements MethodInterface
     public function getEnabled()
     {
         return $this->enabled;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setAvailable($available)
+    {
+        $this->available = $available;
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAvailable()
+    {
+        return $this->available;
     }
 }
