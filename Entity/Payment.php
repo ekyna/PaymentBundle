@@ -2,8 +2,8 @@
 
 namespace Ekyna\Bundle\PaymentBundle\Entity;
 
+use Ekyna\Bundle\PaymentBundle\Model\PaymentInterface;
 use Ekyna\Component\Sale\Payment\MethodInterface;
-use Ekyna\Component\Sale\Payment\PaymentInterface;
 use Ekyna\Component\Sale\Payment\PaymentStates;
 use Payum\Core\Model\ArrayObject;
 
@@ -157,6 +157,62 @@ abstract class Payment extends ArrayObject implements PaymentInterface
     public function getDetails()
     {
         return $this->details;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNumber()
+    {
+        return $this->getId();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDescription()
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getClientEmail()
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getClientId()
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getTotalAmount()
+    {
+        return $this->getAmount() * 100; // As expected by Payum
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCurrencyCode()
+    {
+        return $this->getCurrency();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCreditCard()
+    {
+        return null;
     }
 
     /**

@@ -6,36 +6,39 @@ winzou_state_machine:
         states:
             new:        ~
             pending:    ~
-            processing: ~
+            captured:  ~
             cancelled:  ~
-            authorized: ~
             failed:     ~
-            completed:  ~
             refunded:   ~
+            authorized: ~
+            suspended: ~
+            expired: ~
             unknown:    ~
-            void:       ~
         transitions:
-            create:
+            hang:
                 from: [new]
                 to:   pending
-            process:
-                from: [new, pending]
-                to:   processing
+            capture:
+                from: [new, pending, authorized]
+                to:   captured
             cancel:
-                from: [new, pending, processing]
+                from: [new, pending]
                 to:   cancelled
-            authorize:
-                from: [new, pending, processing]
-                to:   authorized
             fail:
-                from: [new, pending, processing, authorized]
+                from: [new, pending, authorized]
                 to:   failed
-            complete:
-                from: [new, pending, processing, authorized]
-                to:   completed
             refund:
-                from: [completed]
+                from: [captured]
                 to:   refunded
+            authorize:
+                from: [new, pending]
+                to:   authorized
+            suspend:
+                from: [pending, authorized]
+                to:   suspended
+            expire:
+                from: [pending, authorized]
+                to:   expired
             void:
                 from: [new, pending]
-                to:   void
+                to:   unknown

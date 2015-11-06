@@ -15,9 +15,10 @@ ekyna_payment:
             new: Nouveau mode
             edit: Modifier le mode
             remove: Supprimer le mode
-            choose: Je choisi de régler par %payment_name%
+            choose: Je choisi de régler par %gateway_name%
         field:
             factory_name: Passerelle
+            available: Partie publique
         alert:
             empty_list: Aucun mode de paiement configuré
     payment:
@@ -36,13 +37,7 @@ ekyna_payment:
             pending:
                 label: En attente
                 message: Votre paiement est en attente.
-            processing:
-                label: Traitement
-                message: Votre paiement est en cours de traitement.
-            completed:
-                label: Finalisé
-                message: Votre paiement a bien été finalisé.
-            authorized:
+            captured:
                 label: Accepté
                 message: Votre paiement est accepté.
             failed:
@@ -54,17 +49,28 @@ ekyna_payment:
             refunded:
                 label: Remboursé
                 message: Votre paiement est remboursé.
+            suspended:
+                label: Suspendu
+                message: Votre paiement est supendu.
+            authorized:
+                label: Autorisé
+                message: Votre paiement est autorisé.
+            expired:
+                label: Expiré
+                message: Votre paiement a expiré.
             unknown:
                 label: Inconnu
-                message: Le statut de votre paiement présente une erreur.
+                message: Le statut de votre paiement est inconnu.
         transition:
             create: Créer
-            process: Traitement
-            cancel: Annuler
+            hang: Attendre
+            capture: Accepter
             fail: Refuser
-            authorize: Accepter
-            complete: Finaliser
+            cancel: Annuler
             refund: Rembourser
+            authorize: Autoriser
+            suspend: Suspendre
+            expire: Expirer
             void: Néant
         impossible_transition: Impossible d'appliquer le changement de statut du paiement demandé.
     message:

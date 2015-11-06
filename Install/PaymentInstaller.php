@@ -117,6 +117,15 @@ class PaymentInstaller implements OrderedInstallerInterface, ContainerAwareInter
             ],
         ];
 
+        if (class_exists('Ekyna\Bundle\PayumSipsBundle\EkynaPayumSipsBundle')) {
+            $methods['Carte bancaire'] = [
+                'atos_sips',
+                'credit-card.png',
+                '<p>Réglez avec votre carte bancaire.</p>',
+                false
+            ];
+        }
+
         foreach ($methods as $name => $options) {
             $output->write(sprintf(
                 '- <comment>%s</comment> %s ',
@@ -126,7 +135,7 @@ class PaymentInstaller implements OrderedInstallerInterface, ContainerAwareInter
 
             // TODO check that factory method exists
 
-            if (null !== $method = $methodRepository->findOneBy(['paymentName' => $name])) {
+            if (null !== $method = $methodRepository->findOneBy(['gatewayName' => $name])) {
                 $output->writeln('already exists.');
                 continue;
             }
@@ -152,7 +161,7 @@ class PaymentInstaller implements OrderedInstallerInterface, ContainerAwareInter
             /** @var \Ekyna\Bundle\PaymentBundle\Entity\Method $method */
             $method = $methodRepository->createNew();
             $method
-                ->setPaymentName($name)
+                ->setGatewayName($name)
                 ->setFactoryName($options[0])
                 ->setMedia($image)
                 ->setDescription($options[2])

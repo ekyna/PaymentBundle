@@ -1,5 +1,0 @@
-ekyna_payment_prepare:
-    path: /prepare
-    defaults:
-        _controller: EkynaPaymentBundle:Payment:prepare
-    methods: [GET|POST]

@@ -2,6 +2,7 @@
 
 namespace Ekyna\Bundle\PaymentBundle\Twig;
 
+use Ekyna\Bundle\PaymentBundle\Model\MethodInterface;
 use Ekyna\Bundle\PaymentBundle\Model\PaymentStates;
 use Ekyna\Bundle\PaymentBundle\Model\PaymentTransitions;
 use Ekyna\Component\Sale\Payment\PaymentInterface;
@@ -51,13 +52,14 @@ class PaymentExtension extends \Twig_Extension
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
-    public function getGlobals()
+    public function getFilters()
     {
-        return [
-            'payment_states' => PaymentStates::getConstants(),
-        ];
+        return array(
+            new \Twig_SimpleFilter('payment_state_label', [$this, 'getPaymentStateLabel'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFilter('payment_state_badge', [$this, 'getPaymentStateBadge'], ['is_safe' => ['html']]),
+        );
     }
 
     /**
@@ -65,37 +67,39 @@ class PaymentExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return [
-            new \Twig_SimpleFunction('get_payment_state',  [$this, 'getPaymentState'], ['is_safe' => ['html']]),
-            new \Twig_SimpleFunction('render_payment_state',  [$this, 'renderPaymentState'], ['is_safe' => ['html']]),
-            new \Twig_SimpleFunction('render_payment_actions',  [$this, 'renderPaymentActions'], ['is_safe' => ['html']]),
-        ];
+        return array(
+            new \Twig_SimpleFunction('render_payment_actions', [$this, 'renderPaymentActions'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('render_method_config',   [$this, 'renderMethodConfig'],   ['is_safe' => ['html']]),
+        );
     }
 
     /**
-     * Renders the translated payment state.
-     *
-     * @param string $state
-     * @return string
-     */
-    public function getPaymentState($state)
-    {
-        return $this->translator->trans(PaymentStates::getLabel($state));
-    }
-
-    /**
-     * Renders the payment state label.
+     * Returns the payment state label.
      *
      * @param string|PaymentInterface $stateOrPayment
      * @return string
      */
-    public function renderPaymentState($stateOrPayment)
+    public function getPaymentStateLabel($stateOrPayment)
     {
         $state = $stateOrPayment instanceof PaymentInterface ? $stateOrPayment->getState() : $stateOrPayment;
+
+        return $this->translator->trans(PaymentStates::getLabel($state));
+    }
+
+    /**
+     * Returns the payment state badge.
+     *
+     * @param string|PaymentInterface $stateOrPayment
+     * @return string
+     */
+    public function getPaymentStateBadge($stateOrPayment)
+    {
+        $state = $stateOrPayment instanceof PaymentInterface ? $stateOrPayment->getState() : $stateOrPayment;
+
         return sprintf(
             '<span class="label label-%s">%s</span>',
             PaymentStates::getTheme($state),
-            $this->getPaymentState($state)
+            $this->getPaymentStateLabel($state)
         );
     }
 
@@ -130,6 +134,29 @@ class PaymentExtension extends \Twig_Extension
         }
 
         return implode('', $buttons);
+    }
+
+    /**
+     * Renders the method config.
+     *
+     * @param MethodInterface $method
+     * @return string
+     */
+    public function renderMethodConfig(MethodInterface $method)
+    {
+        $output = '<dl class="dl-horizontal">';
+
+        foreach ($method->getConfig() as $key => $value) {
+            if (is_array($value)) {
+                continue;
+            }
+
+            $output .= sprintf('<dt>%s</dt><dd>%s</dd>', $key, $value);
+        }
+
+        $output .= '</dl>';
+
+        return $output;
     }
 
     /**

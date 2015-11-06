@@ -20,21 +20,16 @@
     "require" : {
         "php" : ">=5.4",
         "symfony/framework-bundle" : "~2.7",
-        "ekyna/cms-bundle" : "1.0.x-dev",
-        "ekyna/sale" : "1.0.x-dev",
-        "payum/payum": "0.14.*",
-        "payum/payum-bundle": "0.14.*",
+        "ekyna/cms-bundle" : "dev-master",
+        "ekyna/sale" : "dev-master",
+        "payum/payum": "0.15.*",
+        "payum/payum-bundle": "0.15.*",
         "winzou/state-machine-bundle": "~0.2",
         "craue/formflow-bundle": "~2.1"
     },
     "autoload" : {
         "psr-4" : {
             "Ekyna\\Bundle\\PaymentBundle\\" : ""
-        }
-    },
-    "extra" : {
-        "branch-alias" : {
-            "dev-master" : "1.0.x-dev"
         }
     }
 }

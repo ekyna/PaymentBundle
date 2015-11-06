@@ -6,7 +6,7 @@
     {% for child in form %}
     <li{% if loop.first %} class="active"{% endif %}>
         <a href="#payment-method-state-{{ child.vars.state }}" data-toggle="tab">
-            {{ get_payment_state(child.vars.state) }}
+            {{ child.vars.state|payment_state_label }}
         </a>
     </li>
     {% endfor %}
@@ -44,11 +44,11 @@
                 </label>
             </div>
             <div class="col-sm-9 payment-method-choice-description">
-                <p>{{ method.paymentName }}</p>
+                <p>{{ method.gatewayName }}</p>
                 {{ method.description|raw }}
                 <p>
                     <label for="{{ child.vars.id }}" class="btn btn-xs btn-primary">
-                        {{ 'ekyna_payment.method.button.choose'|trans({'%payment_name%': method.paymentName}) }}
+                        {{ 'ekyna_payment.method.button.choose'|trans({'%gateway_name%': method.gatewayName}) }}
                     </label>
                 </p>
             </div>
