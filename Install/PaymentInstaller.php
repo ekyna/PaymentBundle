@@ -166,6 +166,7 @@ class PaymentInstaller implements OrderedInstallerInterface, ContainerAwareInter
                 ->setMedia($image)
                 ->setDescription($options[2])
                 ->setEnabled($options[3])
+                ->setAvailable(true)
             ;
 
             $em->persist($method);
