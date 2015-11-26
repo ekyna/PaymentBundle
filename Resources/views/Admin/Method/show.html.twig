@@ -30,12 +30,13 @@
                     <div class="col-md-2 show-label">{{ 'ekyna_core.field.config'|trans }}</div>
                     <div class="col-md-10">
                         <div class="show-widget show-widget-textarea">
-                            <dl class="dl-horizontal">
+                            {{ render_method_config(method) }}
+                            {#<dl class="dl-horizontal">
                             {% for key, value in method.config %}
                                 <dt>{{ key }}</dt>
                                 <dd>{{ value }}</dd>
                             {% endfor %}
-                            </dl>
+                            </dl>#}
                         </div>
                     </div>
                 </div>

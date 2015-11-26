@@ -32,10 +32,5 @@
             "Ekyna\\Bundle\\PaymentBundle" : ""
         }
     },
-    "target-dir" : "Ekyna/Bundle/PaymentBundle",
-    "extra" : {
-        "branch-alias" : {
-            "dev-master" : "0.2.x-dev"
-        }
-    }
+    "target-dir" : "Ekyna/Bundle/PaymentBundle"
 }

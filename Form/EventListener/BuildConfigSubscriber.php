@@ -70,12 +70,24 @@ class BuildConfigSubscriber implements EventSubscriberInterface
                 PropertyAccess::createPropertyAccessor()->setValue($data, $propertyPath, $value);
             }
 
-            $type = is_bool($value) ? 'checkbox' : 'text';
-
+            $type = 'text';
             $options = array();
+            if (is_bool($value)) {
+                $type = 'checkbox';
+                $options['attr'] = ['align_with_widget' => true];
+            } elseif(is_numeric($value)) {
+                $type = is_float($value) ? 'number' : 'integer';
+            } elseif (is_array($value)) {
+                continue;
+            }
+
             $options['required'] = in_array($name, $config['payum.required_options']);
 
             $configForm->add($name, $type, $options);
+        }
+
+        if (0 == $configForm->count()) {
+            $form->remove('config');
         }
 
         $event->setData($data);

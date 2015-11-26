@@ -4,6 +4,7 @@ namespace Ekyna\Bundle\PaymentBundle\Twig;
 
 use Ekyna\Bundle\PaymentBundle\Model\PaymentStates;
 use Ekyna\Bundle\PaymentBundle\Model\PaymentTransitions;
+use Ekyna\Component\Sale\Payment\MethodInterface;
 use Ekyna\Component\Sale\Payment\PaymentInterface;
 use Ekyna\Component\Sale\Payment\PaymentTransitions as Transitions;
 use SM\Factory\FactoryInterface;
@@ -60,6 +61,7 @@ class PaymentExtension extends \Twig_Extension
             new \Twig_SimpleFunction('get_payment_state',  array($this, 'getPaymentState'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('render_payment_state',  array($this, 'renderPaymentState'), array('is_safe' => array('html'))),
             new \Twig_SimpleFunction('render_payment_actions',  array($this, 'renderPaymentActions'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('render_method_config',   array($this, 'renderMethodConfig'),   array('is_safe' => array('html'))),
         );
     }
 
@@ -121,6 +123,28 @@ class PaymentExtension extends \Twig_Extension
         }
 
         return implode('', $buttons);
+    }
+
+    /**
+     * Renders the method config.
+     *
+     * @param MethodInterface $method
+     * @return string
+     */
+    public function renderMethodConfig(MethodInterface $method)
+    {
+        $output = '<dl class="dl-horizontal">';
+
+        foreach ($method->getConfig() as $key => $value) {
+            if (is_array($value)) {
+                continue;
+            }
+            $output .= sprintf('<dt>%s</dt><dd>%s</dd>', $key, $value);
+        }
+
+        $output .= '</dl>&nbsp;';
+
+        return $output;
     }
 
     /**
