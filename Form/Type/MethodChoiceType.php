@@ -38,11 +38,16 @@ class MethodChoiceType extends AbstractType
         $queryBuilder = function (Options $options) {
             if (!$options['disabled']) {
                 return function (EntityRepository $repository) {
-                    return $repository->createQueryBuilder('m')->where('m.enabled = true');
+                    return $repository
+                        ->createQueryBuilder('m')
+                        ->andWhere('m.enabled = true')
+                        ->addOrderBy('m.position', 'ASC');
                 };
             } else {
                 return function (EntityRepository $repository) {
-                    return $repository->createQueryBuilder('m');
+                    return $repository
+                        ->createQueryBuilder('m')
+                        ->addOrderBy('m.position', 'ASC');
                 };
             }
         };

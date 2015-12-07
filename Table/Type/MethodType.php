@@ -4,6 +4,7 @@ namespace Ekyna\Bundle\PaymentBundle\Table\Type;
 
 use Ekyna\Bundle\AdminBundle\Table\Type\ResourceTableType;
 use Ekyna\Component\Table\TableBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Class MethodType
@@ -36,6 +37,26 @@ class MethodType extends ResourceTableType
             ->addColumn('actions', 'admin_actions', array(
                 'buttons' => array(
                     array(
+                        'label' => 'ekyna_core.button.move_up',
+                        'icon' => 'arrow-up',
+                        'class' => 'primary',
+                        'route_name' => 'ekyna_payment_method_admin_move_up',
+                        'route_parameters_map' => array(
+                            'methodId' => 'id'
+                        ),
+                        'permission' => 'edit',
+                        ),
+                    array(
+                        'label' => 'ekyna_core.button.move_down',
+                        'icon' => 'arrow-down',
+                        'class' => 'primary',
+                        'route_name' => 'ekyna_payment_method_admin_move_down',
+                        'route_parameters_map' => array(
+                            'methodId' => 'id'
+                        ),
+                        'permission' => 'edit',
+                    ),
+                    array(
                         'label' => 'ekyna_core.button.edit',
                         'class' => 'warning',
                         'route_name' => 'ekyna_payment_method_admin_edit',
@@ -65,6 +86,19 @@ class MethodType extends ResourceTableType
                 'label' => 'ekyna_core.field.enabled',
             ))*/
         ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        parent::setDefaultOptions($resolver);
+
+        $resolver->setDefaults(array(
+            'default_sorts' => array('position asc'),
+            'max_per_page' => 100,
+        ));
     }
 
     /**

@@ -46,6 +46,20 @@ ekyna_payment_method_admin_toggle:
         methodId: \d+
         field: \w+
 
+ekyna_payment_method_admin_move_up:
+    path: /{methodId}/moveup
+    defaults: { _controller: "ekyna_payment.method.controller:moveUpAction" }
+    requirements:
+        _method: GET
+        methodId: \d+
+
+ekyna_payment_method_admin_move_down:
+    path: /{methodId}/movedown
+    defaults: { _controller: "ekyna_payment.method.controller:moveDownAction" }
+    requirements:
+        _method: GET
+        methodId: \d+
+
 ekyna_payment_method_admin_remove:
     path: /{methodId}/remove
     defaults: { _controller: "ekyna_payment.method.controller:removeAction" }

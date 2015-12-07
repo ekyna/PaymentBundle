@@ -2,6 +2,7 @@
 
 namespace Ekyna\Bundle\PaymentBundle\Controller\Admin;
 
+use Ekyna\Bundle\AdminBundle\Controller\Resource\SortableTrait;
 use Ekyna\Bundle\AdminBundle\Controller\Resource\TinymceTrait;
 use Ekyna\Bundle\AdminBundle\Controller\Resource\ToggleableTrait;
 use Ekyna\Bundle\AdminBundle\Controller\ResourceController;
@@ -16,7 +17,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class MethodController extends ResourceController
 {
     use ToggleableTrait,
-        TinymceTrait;
+        TinymceTrait,
+        SortableTrait;
 
     /**
      * {@inheritdoc}

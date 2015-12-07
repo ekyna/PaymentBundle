@@ -4,6 +4,7 @@ namespace Ekyna\Bundle\PaymentBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ekyna\Bundle\CmsBundle\Model\ImageSubjectTrait;
+use Ekyna\Bundle\CoreBundle\Model\SortableTrait;
 use Ekyna\Bundle\CoreBundle\Model\TimestampableTrait;
 use Ekyna\Component\Sale\Payment\MethodInterface;
 use Payum\Core\Model\PaymentConfig as BasePaymentConfig;
@@ -16,6 +17,7 @@ use Payum\Core\Model\PaymentConfig as BasePaymentConfig;
 class Method extends BasePaymentConfig implements MethodInterface
 {
     use ImageSubjectTrait,
+        SortableTrait,
         TimestampableTrait;
 
     /**
