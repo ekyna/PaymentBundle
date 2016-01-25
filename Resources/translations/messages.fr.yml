@@ -18,6 +18,7 @@ ekyna_payment:
             choose: Je choisi de régler par %payment_name%
         field:
             factory_name: Passerelle
+            available: Partie publique
         alert:
             empty_list: Aucun mode de paiement configuré
     payment:

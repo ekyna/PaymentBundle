@@ -36,27 +36,25 @@ class MethodChoiceType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $queryBuilder = function (Options $options) {
-            if (!$options['disabled']) {
-                return function (EntityRepository $repository) {
-                    return $repository
-                        ->createQueryBuilder('m')
-                        ->andWhere('m.enabled = true')
-                        ->addOrderBy('m.position', 'ASC');
-                };
-            } else {
-                return function (EntityRepository $repository) {
-                    return $repository
-                        ->createQueryBuilder('m')
-                        ->addOrderBy('m.position', 'ASC');
-                };
-            }
+            return function (EntityRepository $repository) use ($options) {
+                $qb = $repository->createQueryBuilder('m');
+                $qb->andWhere($qb->expr()->eq('m.enabled', true));
+                if ($options['available']) {
+                    $qb->andWhere($qb->expr()->eq('m.available', true));
+                }
+                return $qb;
+            };
         };
         $resolver
             ->setDefaults(array(
-                'label' => false,
-                'expanded' => true,
-                'class' => $this->dataClass,
+                'label'         => false,
+                'expanded'      => true,
+                'available'     => true,
+                'class'         => $this->dataClass,
                 'query_builder' => $queryBuilder,
+            ))
+            ->setAllowedTypes(array(
+                'available' => 'bool',
             ))
         ;
     }

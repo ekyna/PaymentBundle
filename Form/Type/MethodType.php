@@ -57,6 +57,13 @@ class MethodType extends ResourceFormType
                     'align_with_widget' => true,
                 ),
             ))
+            ->add('available', 'checkbox', array(
+                'label' => 'ekyna_payment.method.field.available',
+                'required' => false,
+                'attr' => array(
+                    'align_with_widget' => true,
+                ),
+            ))
         ;
 
         $builder->addEventSubscriber(new BuildConfigSubscriber($this->registry));

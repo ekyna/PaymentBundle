@@ -18,7 +18,9 @@ class PaymentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options = array())
     {
         $builder
-            ->add('method', 'ekyna_payment_method_choice')
+            ->add('method', 'ekyna_payment_method_choice', array(
+                'available' => !$options['admin_mode'],
+            ))
         ;
     }
 

@@ -29,9 +29,14 @@ class MethodType extends ResourceTableType
             ))
             ->addColumn('enabled', 'boolean', array(
                 'label' => 'ekyna_core.field.enabled',
-                'sortable' => true,
                 'route_name' => 'ekyna_payment_method_admin_toggle',
                 'route_parameters' => array('field' => 'enabled'),
+                'route_parameters_map' => array('methodId' => 'id'),
+            ))
+            ->addColumn('available', 'boolean', array(
+                'label' => 'ekyna_payment.method.field.available',
+                'route_name' => 'ekyna_payment_method_admin_toggle',
+                'route_parameters' => array('field' => 'available'),
                 'route_parameters_map' => array('methodId' => 'id'),
             ))
             ->addColumn('actions', 'admin_actions', array(
