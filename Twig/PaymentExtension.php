@@ -14,7 +14,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 /**
  * Class PaymentExtension
  * @package Ekyna\Bundle\PaymentBundle\Twig
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class PaymentExtension extends \Twig_Extension
 {
@@ -37,16 +37,15 @@ class PaymentExtension extends \Twig_Extension
     /**
      * Constructor.
      *
-     * @param TranslatorInterface   $translator
+     * @param TranslatorInterface $translator
      * @param UrlGeneratorInterface $urlGenerator
-     * @param FactoryInterface      $factory
+     * @param FactoryInterface $factory
      */
     public function __construct(
         TranslatorInterface $translator,
         UrlGeneratorInterface $urlGenerator,
         FactoryInterface $factory
-    )
-    {
+    ) {
         $this->translator = $translator;
         $this->urlGenerator = $urlGenerator;
         $this->factory = $factory;
@@ -58,10 +57,22 @@ class PaymentExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('get_payment_state',  array($this, 'getPaymentState'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('render_payment_state',  array($this, 'renderPaymentState'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('render_payment_actions',  array($this, 'renderPaymentActions'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('render_method_config',   array($this, 'renderMethodConfig'),   array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('get_payment_state', array(
+                $this,
+                'getPaymentState',
+            ), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('render_payment_state', array(
+                $this,
+                'renderPaymentState',
+            ), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('render_payment_actions', array(
+                $this,
+                'renderPaymentActions',
+            ), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('render_method_config', array(
+                $this,
+                'renderMethodConfig',
+            ), array('is_safe' => array('html'))),
         );
     }
 
@@ -69,6 +80,7 @@ class PaymentExtension extends \Twig_Extension
      * Renders the translated payment state.
      *
      * @param string $state
+     *
      * @return string
      */
     public function getPaymentState($state)
@@ -80,6 +92,7 @@ class PaymentExtension extends \Twig_Extension
      * Renders the payment state label.
      *
      * @param PaymentInterface $payment
+     *
      * @return string
      */
     public function renderPaymentState(PaymentInterface $payment)
@@ -96,29 +109,28 @@ class PaymentExtension extends \Twig_Extension
      * Renders the payment actions buttons.
      *
      * @param PaymentInterface $payment
-     * @param string $route
-     * @param array  $routeParameters
+     * @param string           $route
+     * @param array            $routeParameters
+     *
      * @return string
      */
     public function renderPaymentActions(PaymentInterface $payment, $route, array $routeParameters)
     {
-        if ($payment->getMethod()->getFactoryName() !== 'offline') {
-            return '';
-        }
-
+        $buttons = [];
         $sm = $this->factory->get($payment);
 
-        $buttons = [];
-        $model = '<a href="%s" class="btn btn-%s btn-xs" onclick="confirm(\'Souhaitez-vous réellement %s le payment ?\');">%s</a>';
-
-        foreach (Transitions::getManualTransitions() as $transition) {
-            if ($sm->can($transition)) {
-                $label = $this->translator->trans(PaymentTransitions::getLabel($transition));
-                $path = $this->urlGenerator->generate($route, array_merge(
-                    $routeParameters, array('transition' => $transition))
-                );
-                $theme = PaymentTransitions::getTheme($transition);
-                $buttons[] = sprintf($model, $path, $theme, strtolower($label), $label);
+        if ($payment->getMethod()->getFactoryName() !== 'offline') {
+            if ($sm->can(Transitions::TRANSITION_CANCEL)) {
+                $date = null !== $payment->getUpdatedAt() ? $payment->getUpdatedAt() : $payment->getCreatedAt();
+                if ($date < new \DateTime('-1 day')) {
+                    $buttons[] = $this->buildPaymentActionButton(Transitions::TRANSITION_CANCEL, $route, $routeParameters);
+                }
+            }
+        } else {
+            foreach (Transitions::getManualTransitions() as $transition) {
+                if ($sm->can($transition)) {
+                    $buttons[] = $this->buildPaymentActionButton($transition, $route, $routeParameters);
+                }
             }
         }
 
@@ -126,9 +138,30 @@ class PaymentExtension extends \Twig_Extension
     }
 
     /**
+     * Builds the payment action button.
+     *
+     * @param string $transition
+     * @param string $route
+     * @param array  $routeParameters
+     *
+     * @return string
+     */
+    private function buildPaymentActionButton($transition, $route, array $routeParameters)
+    {
+        $label = $this->translator->trans(PaymentTransitions::getLabel($transition));
+        $path = $this->urlGenerator->generate($route, array_merge(
+            $routeParameters, array('transition' => $transition))
+        );
+        $theme = PaymentTransitions::getTheme($transition);
+        $model = '<a href="%s" class="btn btn-%s btn-xs" onclick="confirm(\'Souhaitez-vous réellement %s le payment ?\');">%s</a>';
+        return sprintf($model, $path, $theme, strtolower($label), $label);
+    }
+
+    /**
      * Renders the method config.
      *
      * @param MethodInterface $method
+     *
      * @return string
      */
     public function renderMethodConfig(MethodInterface $method)
